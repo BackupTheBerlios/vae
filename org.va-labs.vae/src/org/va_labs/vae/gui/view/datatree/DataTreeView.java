@@ -1,7 +1,7 @@
 /*
  * Created on Aug 4, 2004
  *
- * $Id: DataTreeView.java,v 1.2 2004/09/05 20:36:31 mojo_jojo Exp $
+ * $Id: DataTreeView.java,v 1.3 2004/10/11 20:00:24 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
 import org.va_labs.vae.gui.Vui;
+import org.va_labs.vae.gui.view.datatree.listener.ProjectTreeListener;
 
 /**
  * @author mojo_jojo
@@ -25,13 +26,12 @@ public class DataTreeView extends ViewPart {
      * Reference to the treeViewer displaying the project Tree.
      */
     private TreeViewer projectTree;
-
+    
     /**
      * Register the view to the vui instance.
      */
     public DataTreeView() {
-        Vui vui = Vui.getVui();
-        vui.registerTreeView(this);
+        Vui.getVui().registerTreeView(this);
     }
 
     /**
@@ -53,6 +53,9 @@ public class DataTreeView extends ViewPart {
 
         projectTree.setContentProvider(new ProjectTreeContentProvider());
         projectTree.setLabelProvider(new ProjectTreeLabelProvider());
+        
+        // Setting up the listeners
+		projectTree.addSelectionChangedListener(new ProjectTreeListener(projectTree.getTree()));
     }
 
     /**
