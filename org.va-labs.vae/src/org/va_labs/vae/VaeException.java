@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: VaeException.java,v 1.1 2004/09/05 00:09:46 mojo_jojo Exp $
+ * $Id: VaeException.java,v 1.2 2005/02/26 00:30:24 mojo_jojo Exp $
  */
 package org.va_labs.vae;
 
@@ -15,24 +15,24 @@ public class VaeException extends Exception {
     /**
 	 * Reference to the module that raised this exception.
 	 */
-	private StringBuffer module;
+	protected StringBuffer module;
 	
 	/**
 	 * Message that should be transmited to the user when such exception
 	 * is raised.
 	 */
-	private StringBuffer message;
+	protected StringBuffer message;
 	
 	/**
 	 * Reason that caused this exception to be raised.
 	 */
-	private StringBuffer reason;
+	protected StringBuffer reason;
 	
 	/**
 	 * Status of the module that raised the exception.
 	 * Defined in the Vae class.
 	 */
-	private int status; 
+	protected int status; 
 	
 	/**
 	 * Basic constructor.
