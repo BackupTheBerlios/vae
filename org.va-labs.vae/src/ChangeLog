@@ -58,3 +58,57 @@
 	
 	* ImageHandler.java (getRegistry): Changed the test to avoid error messages
 	if the resources directory is not found.
+	
+06/09/2004 mojo_jojo
+	Enabling Vae to open build files - taking care of the DataInfoView:
+	* Vae.java: Added a member currentProject to keep a track of the currently
+	opened project.
+	(registerProject): The method sets the project to be registered as the 
+	current project.
+	* Vui.java (registerInfoView): This new method is used to register the 
+	DataInfoView to handle the change of input according to user clicks. It
+	adds a ProjectTreeListener to the project tree.
+	* DataInfoView.java: Formating of the code.
+	(createPartControl): Reduced the size of each column.
+	(DataInfoView): The constructor registers this view to the Vui.
+	(getTableViewer): This new method is used by the ProjectTreeListener to get
+	the tableViewer of the view.
+	* ProjectTreeListener.java: Creation of this class as a change handler for
+	the project tree. It links the project tree and the data table, and starts
+	tree data edition if needed.
+	* DataTreeView.java (addTreeListener): This methods adds a 
+	ProjectTreeListener to the project tree.
+	(getTree): This new method is used by the ProjectTreeListener to get the 
+	tree of the view.
+	* TreeTextListener.java: Creation of this class to listen text edition on 
+	the project tree (roughly an import from the standalone version).
+	
+10/10/2004 mojo_jojo
+	Connecting the tree view and the rest of the application:
+	* IElementListener.java: This interface has to be implemented by each 
+	entity that wants to be kept informed when the user changes the element he
+	is interacting with.
+	* Vui.java (elementListeners): This list will keep track of the listeners
+	that wants to be kept informed of the changes of the current element.
+	(addElementListener): Newly created, registers a listener that will be 
+	kept informed of changes of the current element.
+	(removeElementListener): Newly created, removes a listener from the list.
+	(updateElementListeners): Newly created, informs all listeners of a change
+	that occured.
+	(setCurrentElement): Newly added method, sets the current considered 
+	element.
+	(Vui): initializes the list of elementListeners.
+	* ProjectTreeListener.java (selectionChanged): Updates the current element
+	monitored in the vui through the setCurrentElement method.
+	* DataInfoView.java (setCurrentElement): Newly added method. DataInfoView 
+	implements the IElementListener to update the content of the view according
+	to the current element.
+	(DataInfoView): Registers the view to the vui as an IElementListener.
+	* DataTreeView.java (createPartControl): Instanciate a selection listener
+	and connects it to the project tree so the selections are captured.
+	
+11/10/2004 mojo_jojo
+	* DataTreeView.java (addTreeListener): Took out this method as the listener
+	is directly added in the creatPartControl method.
+	(getTree): Took out this method as it is not used for now. And I think another
+	method should be used, so it will probably will never be used again.
