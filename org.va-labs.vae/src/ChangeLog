@@ -273,3 +273,20 @@
 	Vae.getInstance().
 	
 	* SimpleProject.java: Formated the source code.
+
+26/02/2005 mojo_jojo
+	Adding additional exception mechanism:
+	* Vae.java (acknowledgeVaeException): New method that uses all the 
+	attributes of a VaeException to make the user acknowledge the information.
+	
+	Improve the image handling in Vae:
+	* Messages.properties: Added the Resource_Dir entry.
+	* ImageHandler.java: Formated the source code.
+	(getRegistery): Indicates to the user if it couldn't load image ressources.
+	Uses the Resource_Dir entry of the messages.properties to identify the 
+	resource directory.
+	(addToRegistery): Uses the Resource_Dir entry of the messages.properties to
+	identify the resource directory.
+	* ProjectTreeLabelProvider: Formated the source code.
+	
+	
