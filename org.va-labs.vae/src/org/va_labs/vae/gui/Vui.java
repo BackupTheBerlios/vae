@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.5 2005/01/11 00:05:14 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.6 2005/02/20 12:34:24 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -188,9 +188,7 @@ public class Vui {
      * @return the Project object referencing the active project.
      */
     public Project getActiveProject() {
-        System.out
-                .println("Gui has been requested the name of the active project");
-        return null;
+        return Vae.getVae().getCurrentProject();
     }
 
     /**
@@ -234,7 +232,7 @@ public class Vui {
      * Handles a proper shutdown of the Visual Ant Editor.
      */
     public void quit() {
-        System.out.println("Gui has been requested to close Vae");
+        vae.quit();
     }
 
     /**
@@ -296,6 +294,8 @@ public class Vui {
 
     /**
      * Saves a given project in a specified file.
+     * 
+     * TODO: Implement saveProject.
      * 
      * @param project
      *            name of the project to be saved.
