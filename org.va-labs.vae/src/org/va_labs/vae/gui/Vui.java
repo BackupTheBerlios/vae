@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.7 2005/02/22 22:54:50 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.8 2005/02/23 16:54:43 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -233,11 +233,12 @@ public class Vui {
     public void quit() {
         vae.quit();
     }
-    
+
     /**
      * Refreshes everything that is relative to this tag.
      * 
-     * @param tagAttribute attribute that has been modified.
+     * @param tagAttribute
+     *            attribute that has been modified.
      */
     public void refresh(TagAttribute tagAttribute) {
         dataTreeView.refreshWorkspace(workspace);
@@ -327,7 +328,6 @@ public class Vui {
     public void setCurrentElement(ISwtElement element) {
         currentElement = element;
         updateElementListeners();
-        System.out.println("Vui.setCurrentElement");
     }
 
     /**
