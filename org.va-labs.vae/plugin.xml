@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.va_labs.vae"
+   id="org.vae_labs.vae"
    name="Visual Ant Editor Plug-in"
    version="0.0.1"
-   provider-name="Vicken Amine labs">
+   provider-name="VAE Labs">
    
    <runtime>
       <library name="vae.jar">
@@ -20,33 +20,33 @@
          id="RcpVae"
          point="org.eclipse.core.runtime.applications">
          <application>
-	         <run class="org.va_labs.vae.RcpVae" />
+	         <run class="org.vae_labs.vae.RcpVae" />
 	     </application>
    </extension>
    <extension
          point="org.eclipse.ui.perspectives">
          <perspective 
-         	id="org.va_labs.vae.gui.RcpPerspective"
+         	id="org.vae_labs.vae.gui.RcpPerspective"
          	name="Vae"
-         	class="org.va_labs.vae.gui.RcpPerspective" />
+         	class="org.vae_labs.vae.gui.RcpPerspective" />
    </extension>
    <extension
    		point="org.eclipse.ui.views">
-   		<category name="Vae" id="org.va_labs.vae.gui.views" />
+   		<category name="Vae" id="org.vae_labs.vae.gui.views" />
    		<view 
    			name="Data Tree"
-   			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.view.datatree.DataTreeView"
-   			id="org.va_labs.vae.gui.view.datatree.DataTreeView" />
+   			category="org.vae_labs.vae.gui.views"
+   			class="org.vae_labs.vae.gui.view.datatree.DataTreeView"
+   			id="org.vae_labs.vae.gui.view.datatree.DataTreeView" />
    		<view 
    			name="Data Information"
-   			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.view.datainfo.DataInfoView"
-   			id="org.va_labs.vae.gui.view.datainfo.DataInfoView" />
+   			category="org.vae_labs.vae.gui.views"
+   			class="org.vae_labs.vae.gui.view.datainfo.DataInfoView"
+   			id="org.vae_labs.vae.gui.view.datainfo.DataInfoView" />
    		<view
    			name="Graphical Representation"
-   			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.view.graphicalrepresentation.GraphicalView"
-   			id="org.va_labs.vae.gui.view.graphicalrepresentation.GraphicalView" />
+   			category="org.vae_labs.vae.gui.views"
+   			class="org.vae_labs.vae.gui.view.graphicalrepresentation.GraphicalView"
+   			id="org.vae_labs.vae.gui.view.graphicalrepresentation.GraphicalView" />
    	</extension>
 </plugin>

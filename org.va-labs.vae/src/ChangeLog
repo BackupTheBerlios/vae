@@ -373,3 +373,6 @@
 	project to be added in the case there is already one with that name.
 
 	* ProjectTreeLabelProvider.java: Formated the source code.
+	
+05/04/2005 mojo_jojo
+	Moved all the va_labs things to vae_labs.
