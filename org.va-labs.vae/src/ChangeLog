@@ -308,6 +308,18 @@
 	(toXml): Updated the method to take into account tags where there is text
 	in between.
 	
-04/03/2005 mojo_jojo
+05/03/2005 mojo_jojo
 	Architecture review, vae has to be independant of swt:
-	vae.java: Should not use antloader and vaeExport anymore.
+	* Vae.java (initAntLoader): Took out this method, all the work is now done
+	in the constructor.
+	(Vae): creates the parser that will be used by the AntLoader.
+	* Vui.java (vui): creates the AntLoader.
+	(loadBuild): New method to load the current build file through the AntLoader.
+	(setBuildFile): New method to set the current build file in the AntLoader.
+	* AntLoader.java (AntLoader): Doesn't throw VaeInitExceptions anymore as 
+	the constructor is now empty.
+	
+	First skeleton of the VaeExport class:
+	* Vae.java (Vae): we initialize the reference to the VaeExport instance.
+	* VaeExport.java (getInstance): New method to get the VaeExport singleton.
+	(VaeExport): Nothing to be done in this for now.
