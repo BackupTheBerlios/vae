@@ -26,17 +26,27 @@
    <extension
          point="org.eclipse.ui.perspectives">
          <perspective 
-         	id="org.va_labs.vae.RcpPerspective"
+         	id="org.va_labs.vae.gui.RcpPerspective"
          	name="Vae"
-         	class="org.va_labs.vae.RcpPerspective" />
+         	class="org.va_labs.vae.gui.RcpPerspective" />
    </extension>
    <extension
    		point="org.eclipse.ui.views">
-   		<category name="%Views.category" id="vae" />
+   		<category name="Vae" id="org.va_labs.vae.gui.views" />
+   		<view 
+   			name="Data Tree"
+   			category="org.va_labs.vae.gui.views"
+   			class="org.va_labs.vae.gui.views.DataTreeView"
+   			id="org.va_labs.vae.gui.views.DataTreeView" />
    		<view 
    			name="Data Information"
-   			category="vae"
-   			class="org.va_labs.vae.views.DataView"
-   			id="org.va_labs.vae.views.DataView" />
+   			category="org.va_labs.vae.gui.views"
+   			class="org.va_labs.vae.gui.views.DataInfoView"
+   			id="org.va_labs.vae.gui.views.DataInfoView" />
+   		<view
+   			name="Graphical Representation"
+   			category="org.va_labs.vae.gui.views"
+   			class="org.va_labs.vae.gui.views.GraphicalView"
+   			id="org.va_labs.vae.gui.views.GraphicalView" />
    	</extension>
 </plugin>
