@@ -112,3 +112,22 @@
 	is directly added in the creatPartControl method.
 	(getTree): Took out this method as it is not used for now. And I think another
 	method should be used, so it will probably will never be used again.
+	
+22/12/2004 mojo_jojo
+	Project Tree can handle more than one project:
+	* SwtWorkspace.java: This new class implementing the ISwtElement interface 
+	represents the workspace of the visual ant editor. It keeps track of
+	the currently opened projects.
+	* Vui.java (displayProject): Use the new Workspace class to display the
+	informations in the projectTree.
+	* SwtProject.java (SwtProject): Saves the Workspace that is the parent
+	of the SwtProject.
+	
+	It's now impossible to open the same project more than once:
+	* Vae.java (openProject): Checks if the project has been registered 
+	previously before opening.
+	
+	* DataInfoView: Column names are taken from the Messages class.
+	
+	* SwtProject: Formated the source code.
+	* ISwtElement: Formated the source code.
