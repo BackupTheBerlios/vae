@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: ImageHandler.java,v 1.5 2005/02/26 21:43:59 mojo_jojo Exp $
+ * $Id: ImageHandler.java,v 1.6 2005/02/27 23:51:00 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -16,7 +16,9 @@ import org.va_labs.vae.VaeException;
 import org.va_labs.vae.core.Vae;
 
 /**
- * @author mojo_jojo Handles all kind of image related resources.
+ * @author mojo_jojo 
+ * 
+ * Handles all kind of image related resources.
  */
 public class ImageHandler {
 
@@ -83,7 +85,7 @@ public class ImageHandler {
     private static void addToRegistry(String imagePath) {
         try {
             StringBuffer url = new StringBuffer("file://"
-                    + Messages.getString("Resource_Dir") + imagePath);
+                    + Messages.getString("Resource_Dir") + "/" + imagePath);
             int finalDot = imagePath.lastIndexOf(".");
             System.out.println("Url: "+url.toString());
             registry.put(imagePath.substring(0, finalDot), ImageDescriptor
