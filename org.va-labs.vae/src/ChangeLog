@@ -131,3 +131,61 @@
 	
 	* SwtProject: Formated the source code.
 	* ISwtElement: Formated the source code.
+	
+09/02/2005 mojo_jojo
+	Upgrading the data table to be swt compliant and fix of the cell 
+	edition (continued):
+	* DataInfoView.java (createPartControl): Update of the code to set things
+	the way it is supposed to be set in swt.
+	
+	Establishing a context menu associated to the information table 
+	(continued):
+	* EditAction.java: Added this class to handle the edition of an entry.
+	
+	Source code reformating :
+	* DataTableContentProvider.java: Reformated the source code.
+	* DataInfoView.java: Reformated the source code.
+	* DataCellModifier.java: Reformated the source code.
+	* Project.java: Reformated the source code.
+	
+12/02/2005 mojo_jojo
+	Fixing the cell edition (continued):
+	* DataInfoView.java (createPartControl): Sets the DataCellModifier for the
+	information table.
+
+15/02/2005 mojo_jojo
+	Fixing the cell edition (end):
+	* DataCellModifier.java (modify): Fixed null reference to project variable.
+	Took out the project variable.
+	
+17/02/2005 mojo_jojo
+	Connecting the changes on the data table with the internal 
+	data (continued):
+	* Vae.java (getCurrentProject): new method to get the current project.
+	* Tag.java (setClean): sets the current project status in addition to the
+	tag status.
+	
+	Adding a way to set the current project:
+	* Vae.java (setCurrentProject): new method to set the current project.
+	
+	Implementation of the quit command:
+	* Vui.java (quit): implementation of the function.
+	
+	* ExitAction.java: Reformatting of the source code.
+	
+18/02/2005 mojo_jojo
+	Connecting the changes on the data table with the internal data (end):
+	* Tag.java (setCurrentProject): new method to set the current project for
+	the tag.
+	* SaxAntParser.java (startElement): sets the current project of each newly
+	created tag.
+	
+	* Vui.java (getActiveProject): Implemented the method.
+	
+	Cosmetic changes:
+	* Vae.java (isDirty): became hasDirty.
+	(VAE__DEBUG): This is used to make some printouts only in debug mode.
+	(acknowledgeError): prints additional information to the console if the 
+	VAE__DEBUG flag is on.
+	(acknowledgeWarning): prints additional information to the console if the
+	VAE__DEBUG flag is on.
