@@ -1,12 +1,12 @@
 /*
  * Created on Aug 17, 2004
  *
- * $Id: ExitAction.java,v 1.2 2005/02/20 12:35:39 mojo_jojo Exp $
+ * $Id: ExitAction.java,v 1.3 2005/03/07 21:23:37 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.actions;
 
 import org.eclipse.jface.action.Action;
-import org.va_labs.vae.gui.Vui;
+import org.va_labs.vae.core.Vae;
 
 /**
  * @author mojo_jojo
@@ -16,19 +16,10 @@ import org.va_labs.vae.gui.Vui;
 public class ExitAction extends Action {
 
     /**
-     * Reference to the Swt Vae User Interface that instanciated this.
-     */
-    private Vui vui;
-
-    /**
      * Sets the entry up for the menu.
      * 
-     * @param vui
-     *            Visual ant editor User Interface that will be in relationship
-     *            with this action.
      */
-    public ExitAction(Vui vui) {
-        this.vui = vui;
+    public ExitAction() {
         setText("&Exit@Ctrl+Q");
         setToolTipText("Exit from VAE");
     }
@@ -37,6 +28,6 @@ public class ExitAction extends Action {
      * Takes care of what to do when the User clicks on File > Exit
      */
     public void run() {
-        vui.quit();
+        Vae.getInstance().quit();
     }
 }
