@@ -1,7 +1,7 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.2 2004/10/11 19:50:36 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.3 2005/01/11 00:07:42 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
@@ -67,10 +67,10 @@ public class DataInfoView extends ViewPart implements IElementListener {
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
         TableColumn nameColumn = new TableColumn(table, SWT.NONE);
-        nameColumn.setText("Name");
+        nameColumn.setText(Messages.getString("Name_Column"));
         nameColumn.setWidth(70);
         TableColumn valueColumn = new TableColumn(table, SWT.NONE);
-        valueColumn.setText("Value");
+        valueColumn.setText(Messages.getString("Value_Column"));
         valueColumn.setWidth(70);
 
         tableViewer = new TableViewer(table);
