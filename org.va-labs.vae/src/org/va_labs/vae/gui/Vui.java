@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.9 2005/02/26 00:38:06 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.10 2005/03/05 15:45:51 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -22,6 +22,8 @@ import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.dialog.SaveFilesContentProvider;
 import org.va_labs.vae.gui.dialog.SaveFilesLabelProvider;
 import org.va_labs.vae.gui.listener.IElementListener;
+import org.va_labs.vae.gui.processes.AntLoader;
+import org.va_labs.vae.gui.processes.LoadFailedException;
 import org.va_labs.vae.gui.tag.ISwtElement;
 import org.va_labs.vae.gui.tag.project.SwtProject;
 import org.va_labs.vae.gui.view.datainfo.DataInfoView;
@@ -55,6 +57,12 @@ public class Vui {
     }
 
     /**
+     * module in charge of loading build files and handling the different
+     * processes involved.
+     */
+    private AntLoader antLoader;
+
+    /**
      * Reference to the current SwtElement being considered by the user.
      */
     private ISwtElement currentElement;
@@ -85,12 +93,13 @@ public class Vui {
     private SwtWorkspace workspace;
 
     /**
-     * Initialization of the Vae User Interface. Registers the vae core, and
-     * registers this instance to the vae core.
+     * Initialization of the Vae User Interface.
+     * 
      *  
      */
     private Vui() {
         elementListeners = new ArrayList();
+        antLoader = new AntLoader();
     }
 
     /**
@@ -213,6 +222,16 @@ public class Vui {
     }
 
     /**
+     * Requests the antLoader to load the current build file.
+     * 
+     * @throws LoadFailedException
+     *             in case the load fails for some reason.
+     */
+    public void loadBuild() throws LoadFailedException {
+        antLoader.loadBuild();
+    }
+
+    /**
      * Opens a build file and displays its content.
      * 
      * @param filename
@@ -300,6 +319,16 @@ public class Vui {
     public void saveProject(Project project, String file) {
         System.out.println("Gui has been requested to save " + project + "in "
                 + file);
+    }
+
+    /**
+     * Used to indicate the file that will be loaded.
+     * 
+     * @param filename
+     *            path to the file to be loaded next.
+     */
+    public void setBuildFile(String filename) {
+        antLoader.setBuildFile(filename);
     }
 
     /**
