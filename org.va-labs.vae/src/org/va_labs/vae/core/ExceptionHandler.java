@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: ExceptionHandler.java,v 1.1 2004/09/05 00:10:44 mojo_jojo Exp $
+ * $Id: ExceptionHandler.java,v 1.2 2004/09/05 20:26:54 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -69,7 +69,7 @@ public class ExceptionHandler {
 		vae.signifyMessage("Ready.");
 	}
 	
-	public void handleFileNotFound(FileNotFoundException e)
+	public void handle(FileNotFoundException e)
 	{
 //		Next line disabled because of a jface bug.
 //		vae.signifyError("Error, please read the message.");
@@ -78,7 +78,7 @@ public class ExceptionHandler {
 		vae.signifyMessage("Ready.");
 	}
 	
-	public void handleVaeParseException(VaeParsingException e)
+	public void handle(VaeParsingException e)
 	{
 		vae.acknowledgeWarning(e.getModule(), e.getMessage(), 
 				e.getReason(), e.getStatus(), e);
