@@ -1,7 +1,7 @@
 /*
  * Created on Aug 17, 2004
  *
- * $Id: OpenAction.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: OpenAction.java,v 1.2 2005/02/23 16:55:15 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.actions;
 
@@ -54,11 +54,9 @@ public class OpenAction extends Action {
 		dialog.setFilterNames(filters);
 		dialog.setFilterExtensions(extensions);
 		dialog.setFileName("build.xml");
-		dialog.open();
-		
-		String path = dialog.getFilterPath();
-		String file = dialog.getFilterPath() + System.getProperty("file.separator") + dialog.getFileName();
-		
-		vui.openProject(file);
+		String file = dialog.open();
+		if (file != null) { 
+		    vui.openProject(file);
+		}
 	}
 }
