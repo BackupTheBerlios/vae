@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.10 2005/02/26 13:26:35 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.11 2005/03/05 15:43:55 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -14,14 +14,15 @@ import java.util.List;
 import org.va_labs.vae.VaeException;
 import org.va_labs.vae.VaeInitException;
 import org.va_labs.vae.gui.Vui;
-import org.va_labs.vae.gui.processes.AntLoader;
 import org.va_labs.vae.gui.processes.VaeExport;
 import org.va_labs.vae.parser.IAntParser;
 import org.va_labs.vae.parser.SaxAntParser;
 import org.va_labs.vae.tag.project.Project;
 
 /**
- * @author mojo_jojo The Visual Ant Editor core functionality is here.
+ * @author mojo_jojo
+ * 
+ * The Visual Ant Editor core functionality is here.
  */
 public class Vae {
 
@@ -64,12 +65,6 @@ public class Vae {
     }
 
     /**
-     * module in charge of loading build files and handling the different
-     * processes involved.
-     */
-    private AntLoader antLoader;
-
-    /**
      * Reference to the currently opened project.
      */
     private Project currentProject;
@@ -109,11 +104,12 @@ public class Vae {
      * well.
      */
     private Vae() {
-        vui = Vui.getInstance();
-        exceptionHandler = ExceptionHandler.getInstance();
-        projects = new HashMap(5);
         try {
-            initAntLoader();
+            parser = new SaxAntParser();
+            vui = Vui.getInstance();
+            vaeExport = VaeExport.getInstance();
+            exceptionHandler = ExceptionHandler.getInstance();
+            projects = new HashMap(5);
         } catch (VaeInitException e) {
             exceptionHandler.handle(e);
         }
@@ -247,20 +243,6 @@ public class Vae {
     }
 
     /**
-     * Initializes the ant loader.
-     * 
-     * Creates the ant parser that will be used and indicates it to the user
-     * interface.
-     * 
-     * @throws VaeInitException
-     *             if anything goes wrong.
-     */
-    private void initAntLoader() throws VaeInitException {
-        parser = new SaxAntParser();
-        antLoader = new AntLoader();
-    }
-
-    /**
      * Indicates whether at least one of the projects currently opened need to
      * be saved.
      * 
@@ -285,9 +267,9 @@ public class Vae {
      */
     public void openProject(String filename) {
         if (!projects.containsKey(filename)) {
-            antLoader.setBuildFile(filename);
+            vui.setBuildFile(filename);
             try {
-                antLoader.loadBuild();
+                vui.loadBuild();
                 Project project = (Project) projects.get(filename);
                 vui.displayProject(project);
             } catch (Exception e) {
