@@ -36,17 +36,17 @@
    		<view 
    			name="Data Tree"
    			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.views.DataTreeView"
-   			id="org.va_labs.vae.gui.views.DataTreeView" />
+   			class="org.va_labs.vae.gui.view.datatree.DataTreeView"
+   			id="org.va_labs.vae.gui.view.datatree.DataTreeView" />
    		<view 
    			name="Data Information"
    			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.views.DataInfoView"
-   			id="org.va_labs.vae.gui.views.DataInfoView" />
+   			class="org.va_labs.vae.gui.view.datainfo.DataInfoView"
+   			id="org.va_labs.vae.gui.view.datainfo.DataInfoView" />
    		<view
    			name="Graphical Representation"
    			category="org.va_labs.vae.gui.views"
-   			class="org.va_labs.vae.gui.views.GraphicalView"
-   			id="org.va_labs.vae.gui.views.GraphicalView" />
+   			class="org.va_labs.vae.gui.view.graphicalrepresentation.GraphicalView"
+   			id="org.va_labs.vae.gui.view.graphicalrepresentation.GraphicalView" />
    	</extension>
 </plugin>
