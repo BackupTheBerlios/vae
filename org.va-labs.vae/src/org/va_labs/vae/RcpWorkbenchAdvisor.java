@@ -1,7 +1,7 @@
 /*
  * Created on Jul 24, 2004
  *
- * $Id: RcpWorkbenchAdvisor.java,v 1.6 2005/03/06 23:38:47 mojo_jojo Exp $
+ * $Id: RcpWorkbenchAdvisor.java,v 1.7 2005/03/07 21:26:32 mojo_jojo Exp $
  */
 package org.va_labs.vae;
 
@@ -66,8 +66,8 @@ public class RcpWorkbenchAdvisor extends WorkbenchAdvisor {
     private void fillFileMenu(IMenuManager menubar, IWorkbenchWindow window) {
         MenuManager fileMenu = new MenuManager("&File");
 
-        fileMenu.add(new NewAction(vui));
-        fileMenu.add(new OpenAction(vui, window));
+        fileMenu.add(new NewAction());
+        fileMenu.add(new OpenAction(window));
         fileMenu.add(new Separator());
 
         // Not ready yet.
@@ -75,7 +75,7 @@ public class RcpWorkbenchAdvisor extends WorkbenchAdvisor {
         fileMenu.add(new SaveAsAction(window));
         fileMenu.add(new Separator());
 
-        fileMenu.add(new ExitAction(vui));
+        fileMenu.add(new ExitAction());
 
         menubar.add(fileMenu);
     }
