@@ -1,7 +1,7 @@
 /*
  * Created on Aug 4, 2004
  *
- * $Id: DataTreeView.java,v 1.5 2005/02/22 23:04:56 mojo_jojo Exp $
+ * $Id: DataTreeView.java,v 1.6 2005/02/26 00:44:10 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -34,7 +34,7 @@ public class DataTreeView extends ViewPart {
      * Register the view to the vui instance.
      */
     public DataTreeView() {
-        Vui.getVui().registerTreeView(this);
+        Vui.getInstance().registerTreeView(this);
     }
 
     /**
