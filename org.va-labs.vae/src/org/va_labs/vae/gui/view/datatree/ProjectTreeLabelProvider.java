@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeLabelProvider.java,v 1.5 2005/02/23 16:56:34 mojo_jojo Exp $
+ * $Id: ProjectTreeLabelProvider.java,v 1.6 2005/02/26 13:27:56 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -22,11 +22,12 @@ import org.va_labs.vae.gui.tag.task.SwtTask;
 public class ProjectTreeLabelProvider implements ILabelProvider {
 
     /**
-     * Adds a listener to this label provider. Has no effect if an identical
-     * listener is already registered. Label provider listeners are informed
-     * about state changes that affect the rendering of the viewer that uses
-     * this label provider. We don't change the rendering of the viewer for now,
-     * so there is nothing in here.
+     * Adds a listener to this label provider.
+     * 
+     * Has no effect if an identical listener is already registered. Label
+     * provider listeners are informed about state changes that affect the
+     * rendering of the viewer that uses this label provider. We don't change
+     * the rendering of the viewer for now, so there is nothing in here.
      * 
      * @param listener
      *            a label provider listener that wants to be kept informed.
@@ -67,12 +68,16 @@ public class ProjectTreeLabelProvider implements ILabelProvider {
      */
     public Image getImage(Object object) {
         if (object instanceof SwtTask || object instanceof SwtNestedElement) {
+            System.out.println("Requesting vae_task");
             return ImageHandler.getRegistry().get("vae_task");
         } else if (object instanceof SwtTarget) {
+            System.out.println("Requesting vae_target");
             return ImageHandler.getRegistry().get("vae_target");
         } else if (object instanceof SwtProperty) {
+            System.out.println("Requesting vae_property");
             return ImageHandler.getRegistry().get("vae_property");
         } else {
+            System.out.println("Requesting vae_unidentified_tag");
             return ImageHandler.getRegistry().get("vae_unidentified_tag");
         }
     }
