@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: ImageHandler.java,v 1.4 2005/02/26 13:27:29 mojo_jojo Exp $
+ * $Id: ImageHandler.java,v 1.5 2005/02/26 21:43:59 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -82,10 +82,10 @@ public class ImageHandler {
      */
     private static void addToRegistry(String imagePath) {
         try {
-            StringBuffer url = new StringBuffer("file:"
+            StringBuffer url = new StringBuffer("file://"
                     + Messages.getString("Resource_Dir") + imagePath);
             int finalDot = imagePath.lastIndexOf(".");
-            System.out.println("Adding : " + imagePath.substring(0, finalDot));
+            System.out.println("Url: "+url.toString());
             registry.put(imagePath.substring(0, finalDot), ImageDescriptor
                     .createFromURL(new URL(url.toString())));
         } catch (MalformedURLException ex) {
