@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.9 2005/02/26 00:36:11 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.10 2005/02/26 13:26:35 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.va_labs.vae.VaeException;
 import org.va_labs.vae.VaeInitException;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.gui.processes.AntLoader;
@@ -77,7 +78,7 @@ public class Vae {
      * Module that handles exceptions for us.
      */
     private ExceptionHandler exceptionHandler;
-    
+
     /**
      * Parser that will load the build files.
      */
@@ -103,9 +104,9 @@ public class Vae {
     /**
      * Initialization of the Vae instance.
      * 
-     * Gets (creates) The user interface.
-     * Creates the exceptionHandler and a stack that will receive the projects.
-     * The AntLoader is initiliazed as well.
+     * Gets (creates) The user interface. Creates the exceptionHandler and a
+     * stack that will receive the projects. The AntLoader is initiliazed as
+     * well.
      */
     private Vae() {
         vui = Vui.getInstance();
@@ -137,10 +138,30 @@ public class Vae {
     public void acknowledgeError(String vaeModule, String errorMessage,
             String reasonMessage, int moduleStatus, Exception e) {
         if (VAE__DEBUG) {
-            System.err.println("Catched Error exception : " + e);
+            System.err.println("Catched Error exception: " + e);
         }
         vui.acknowledgeError(vaeModule, errorMessage, reasonMessage,
                 moduleStatus, e);
+    }
+
+    /**
+     * Uses all the attributes of a VaeException to make the user acknowledge
+     * the information.
+     * 
+     * @param e
+     *            Received VaeException.
+     */
+    public void acknowledgeVaeException(VaeException e) {
+        if (VAE__DEBUG) {
+            System.err.println("Catched VaeException: " + e);
+        }
+        if (e.getStatus() == VAE__MODULE__ERROR) {
+            vui.acknowledgeError(e.getModule(), e.getMessage(), e.getReason(),
+                    e.getStatus(), e);
+        } else {
+            vui.acknowledgeWarning(e.getModule(), e.getMessage(),
+                    e.getReason(), e.getStatus(), e);
+        }
     }
 
     /**
@@ -164,10 +185,10 @@ public class Vae {
         vui.acknowledgeWarning(vaeModule, warningMessage, warningReason,
                 moduleStatus, e);
         if (VAE__DEBUG) {
-            System.err.println("Catched Warning exception : " + e);
+            System.err.println("Catched Warning exception: " + e);
         }
     }
-    
+
     /**
      * Indicates the ant parser that is currently used.
      * 
@@ -206,7 +227,7 @@ public class Vae {
         }
         return dirtyProjects;
     }
-    
+
     /**
      * Returns the ExceptionHandler for this vae instance.
      * 
@@ -215,7 +236,7 @@ public class Vae {
     public ExceptionHandler getExceptionHandler() {
         return exceptionHandler;
     }
-    
+
     /**
      * Indicates the current Vae User Interface.
      * 
@@ -230,6 +251,7 @@ public class Vae {
      * 
      * Creates the ant parser that will be used and indicates it to the user
      * interface.
+     * 
      * @throws VaeInitException
      *             if anything goes wrong.
      */
