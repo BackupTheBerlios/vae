@@ -1,7 +1,7 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.4 2005/02/20 12:45:12 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.5 2005/02/22 23:04:23 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
+import org.va_labs.vae.core.TagAttribute;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.gui.listener.IElementListener;
 import org.va_labs.vae.gui.tag.ISwtElement;
@@ -65,29 +66,30 @@ public class DataInfoView extends ViewPart implements IElementListener {
 
         // Setting up the TableViewer.
         tableViewer = new TableViewer(parent, SWT.BORDER | SWT.MULTI);
-        
+
         TableLayout layout = new TableLayout();
         layout.addColumnData(new ColumnWeightData(50, true));
         layout.addColumnData(new ColumnWeightData(50, true));
-        
+
         tableViewer.getTable().setLayout(layout);
         tableViewer.getTable().setLinesVisible(true);
         tableViewer.getTable().setHeaderVisible(true);
-        
+
         tableViewer.setContentProvider(new DataTableContentProvider());
         tableViewer.setLabelProvider(new DataTableLabelProvider());
         tableViewer.setCellModifier(new DataCellModifier(tableViewer));
         tableViewer.setCellEditors(new CellEditor[] {
                 new TextCellEditor(tableViewer.getTable()),
-                new TextCellEditor(tableViewer.getTable())
-        });
+                new TextCellEditor(tableViewer.getTable()) });
         tableViewer.setColumnProperties(properties);
-        
-        TableColumn nameColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+
+        TableColumn nameColumn = new TableColumn(tableViewer.getTable(),
+                SWT.NONE);
         nameColumn.setText(Messages.getString("Name_Column"));
-        TableColumn dataColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+        TableColumn dataColumn = new TableColumn(tableViewer.getTable(),
+                SWT.NONE);
         dataColumn.setText(Messages.getString("Value_Column"));
-        
+
     }
 
     /**
@@ -97,6 +99,16 @@ public class DataInfoView extends ViewPart implements IElementListener {
      */
     public StructuredViewer getTableViewer() {
         return tableViewer;
+    }
+
+    /**
+     * Refreshes the Viewer concerning the given tagAttribute.
+     * 
+     * @param tagAttribute
+     *            the edited TagAttribute.
+     */
+    public void refresh(TagAttribute tagAttribute) {
+        tableViewer.refresh(tagAttribute);
     }
 
     /**
@@ -117,4 +129,5 @@ public class DataInfoView extends ViewPart implements IElementListener {
     public void setFocus() {
 
     }
+
 }
