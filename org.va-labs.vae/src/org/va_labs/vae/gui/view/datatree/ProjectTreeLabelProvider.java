@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeLabelProvider.java,v 1.4 2005/02/22 23:05:23 mojo_jojo Exp $
+ * $Id: ProjectTreeLabelProvider.java,v 1.5 2005/02/23 16:56:34 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -91,13 +91,12 @@ public class ProjectTreeLabelProvider implements ILabelProvider {
             if (!((SwtProject) element).getClean()) {
                 name += " *";
             }
-            System.out.println("returning "+name +" as project name");
             return name;
         } else if (element instanceof ISwtElement) {
             return ((ISwtElement) element).getText();
         } else {
             // TODO Use the exception handler to do something sensible here.
-            System.out.println("Asked for the label of unsupported element.");
+            System.err.println("Asked for the label of unsupported element.");
             return null;
         }
     }
