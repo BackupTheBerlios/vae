@@ -1,7 +1,7 @@
 /*
  * Created on Aug 17, 2004
  *
- * $Id: Project.java,v 1.2 2005/02/20 12:41:43 mojo_jojo Exp $
+ * $Id: Project.java,v 1.3 2005/03/06 23:28:04 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag.project;
 
@@ -20,6 +20,11 @@ import org.va_labs.vae.tag.taskdef.TaskDef;
  * support.
  */
 public abstract class Project extends Tag {
+
+    /**
+     * Path to the build file associated to the Project.
+     */
+    protected String filePath;
 
     /**
      * Default constructor of project object. Simply calls the constructor of
@@ -56,12 +61,12 @@ public abstract class Project extends Tag {
     public abstract void addTaskDef(TaskDef taskDef);
 
     /**
-     * Adds an unidentified tag to this project. 
+     * Adds an unidentified tag to this project.
      * 
-     * This tags are basically at the
-     * level of targets, but are neigher properties nor targets. At one point
-     * this elements need to be integrated specifically, but we want at least to
-     * display them in the tree with a specific image.
+     * This tags are basically at the level of targets, but are neigher
+     * properties nor targets. At one point this elements need to be integrated
+     * specifically, but we want at least to display them in the tree with a
+     * specific image.
      * 
      * @param unidentifiedTag
      *            the unidentified Tag to be added.
@@ -90,6 +95,15 @@ public abstract class Project extends Tag {
     public abstract String getDescription();
 
     /**
+     * Gets the path to the build file for this project.
+     * 
+     * @return the path to the ant file.
+     */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    /**
      * Get the taskdefs (user defined ant tasks) of the current project.
      * 
      * @return a java.util.HashMap containing the taskdefs of the project. Note :
@@ -98,10 +112,9 @@ public abstract class Project extends Tag {
     public abstract List getTaskDefs();
 
     /**
-     * This tag is a project tag. 
+     * This tag is a project tag.
      * 
-     * It is used so the project tree knows which
-     * image to associate to us.
+     * It is used so the project tree knows which image to associate to us.
      * 
      * @see org.vae.core.Tag#getType()
      */
@@ -201,6 +214,16 @@ public abstract class Project extends Tag {
     public abstract void setDescription(String description);
 
     /**
+     * Sets the path to the build file for this project.
+     * 
+     * @param path
+     *            the new path for the build file of this project.
+     */
+    public void setFilePath(String path) {
+        filePath = path;
+    }
+
+    /**
      * Sets the properties of the current project.
      * 
      * @param propertyList
@@ -225,12 +248,12 @@ public abstract class Project extends Tag {
     public abstract void setTaskDefs(List taskDefs);
 
     /**
-     * Sets the unidentified Tags of this project. 
+     * Sets the unidentified Tags of this project.
      * 
-     * This tags are basically at
-     * the level of targets, but are neigher properties nor targets. At one
-     * point this elements need to be integrated specifically, but we want at
-     * least to display them in the tree with a specific image.
+     * This tags are basically at the level of targets, but are neigher
+     * properties nor targets. At one point this elements need to be integrated
+     * specifically, but we want at least to display them in the tree with a
+     * specific image.
      * 
      * @param a
      *            list of unidentied tags
