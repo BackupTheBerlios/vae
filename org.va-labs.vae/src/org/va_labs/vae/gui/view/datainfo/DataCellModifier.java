@@ -1,17 +1,16 @@
 /*
  * Created on Aug 22, 2004
  *
- * $Id: DataCellModifier.java,v 1.3 2005/02/22 23:03:19 mojo_jojo Exp $
+ * $Id: DataCellModifier.java,v 1.4 2005/02/26 00:39:39 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.internal.ExceptionHandler;
 import org.va_labs.vae.Messages;
 import org.va_labs.vae.core.TagAttribute;
-import org.va_labs.vae.gui.Vui;
+import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.parser.IllegalAttributeException;
 import org.va_labs.vae.tag.NoSuchAttributeException;
 import org.va_labs.vae.tag.Tag;
@@ -31,17 +30,11 @@ public class DataCellModifier implements ICellModifier {
     private TableViewer viewer;
 
     /**
-     * Reference to the exception handler.
-     */
-    private ExceptionHandler exceptionHandler;
-
-    /**
      * Sets the reference to the exception handler and to the TableViewer.
-     *
+     *  
      */
     public DataCellModifier(TableViewer tableViewer) {
         viewer = tableViewer;
-        exceptionHandler = ExceptionHandler.getInstance();
     }
 
     /**
@@ -81,10 +74,9 @@ public class DataCellModifier implements ICellModifier {
                 return tagAttribute.getValue();
             } else {
                 // TODO Use the exception handler to do something sensible.
-                System.out
-                        .println("Wrong column number in DataCellModifier."
-                                + "Please notify this problem to the Vae " +
-                                		"development team.");
+                System.out.println("Wrong column number in DataCellModifier."
+                        + "Please notify this problem to the Vae "
+                        + "development team.");
             }
         }
 
@@ -111,26 +103,24 @@ public class DataCellModifier implements ICellModifier {
      */
     public void modify(Object element, String property, Object value) {
         TableItem tableItem = (TableItem) element;
-        // TODO use Exception handler in case the cast doesn't work.
+        // TODO (modify) use Exception handler in case the cast doesn't work.
         TagAttribute tagAttribute = (TagAttribute) tableItem.getData();
         Tag tag = tagAttribute.getTag();
         if (tag != null) {
             try {
                 if (property.equals(Messages.getString("Name_Column"))) {
-                    tag.updateAttribute(tagAttribute.getName(), value.toString(),
-                            tagAttribute.getValue());
+                    tag.updateAttribute(tagAttribute.getName(), value
+                            .toString(), tagAttribute.getValue());
                 } else {
                     String name = tagAttribute.getName();
                     tag.updateAttribute(name, name, value.toString());
                 }
-                Vui.getVui().refresh(tagAttribute);
+                Vae.getInstance().getVui().refresh(tagAttribute);
             } catch (IllegalAttributeException e) {
-                // TODO: Handle IllegalAttributeException better !
-                exceptionHandler.handleException(e);
+                Vae.getInstance().getExceptionHandler().handle(e);
                 return;
             } catch (NoSuchAttributeException e) {
-                // TODO: Indicate in this case that there is a dev problem !
-                exceptionHandler.handleException(e);
+                Vae.getInstance().getExceptionHandler().handle(e);
                 return;
             }
         }
