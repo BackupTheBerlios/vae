@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.va_labs.vae"
+   name="Visual Ant Editor Plug-in"
+   version="0.0.1"
+   provider-name="Vicken Amine labs">
+   
+   <runtime>
+      <library name="vae.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+   </requires>
+
+   <extension
+         id="RcpVae"
+         point="org.eclipse.core.runtime.applications">
+         <application>
+	         <run class="org.va_labs.vae.RcpVae" />
+	     </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+         <perspective 
+         	id="org.va_labs.vae.RcpPerspective"
+         	name="Vae"
+         	class="org.va_labs.vae.RcpPerspective" />
+   </extension>
+   <extension
+   		point="org.eclipse.ui.views">
+   		<category name="%Views.category" id="vae" />
+   		<view 
+   			name="Data Information"
+   			category="vae"
+   			class="org.va_labs.vae.views.DataView"
+   			id="org.va_labs.vae.views.DataView" />
+   	</extension>
+</plugin>
