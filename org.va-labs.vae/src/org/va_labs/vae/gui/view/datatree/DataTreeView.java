@@ -1,7 +1,7 @@
 /*
  * Created on Aug 4, 2004
  *
- * $Id: DataTreeView.java,v 1.3 2004/10/11 20:00:24 mojo_jojo Exp $
+ * $Id: DataTreeView.java,v 1.4 2005/01/11 00:09:16 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -26,7 +26,7 @@ public class DataTreeView extends ViewPart {
      * Reference to the treeViewer displaying the project Tree.
      */
     private TreeViewer projectTree;
-    
+
     /**
      * Register the view to the vui instance.
      */
@@ -53,9 +53,10 @@ public class DataTreeView extends ViewPart {
 
         projectTree.setContentProvider(new ProjectTreeContentProvider());
         projectTree.setLabelProvider(new ProjectTreeLabelProvider());
-        
+
         // Setting up the listeners
-		projectTree.addSelectionChangedListener(new ProjectTreeListener(projectTree.getTree()));
+        projectTree.addSelectionChangedListener(new ProjectTreeListener(
+                projectTree.getTree()));
     }
 
     /**
