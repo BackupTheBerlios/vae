@@ -1,7 +1,7 @@
 /*
  * Created on Jul 24, 2004
  *
- * $Id: RcpWorkbenchAdvisor.java,v 1.2 2004/08/17 22:34:20 mojo_jojo Exp $
+ * $Id: RcpWorkbenchAdvisor.java,v 1.3 2004/09/05 00:09:05 mojo_jojo Exp $
  */
 package org.va_labs.vae;
 
@@ -13,6 +13,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.gui.actions.ExitAction;
 import org.va_labs.vae.gui.actions.NewAction;
@@ -25,6 +26,10 @@ import org.va_labs.vae.gui.actions.SaveAsAction;
  */
 public class RcpWorkbenchAdvisor extends WorkbenchAdvisor 
 {
+    /**
+     * Reference to the core Vae object.
+     */
+    private Vae vae;
     /**
      * Reference to the Visual Editor User Interface.
      */
@@ -91,7 +96,9 @@ public class RcpWorkbenchAdvisor extends WorkbenchAdvisor
         configurer.setInitialSize(new Point(800, 600));
         configurer.setTitle(Messages.getString("VAE"));
         
-        vui = new Vui();
+        // Initializes the Vae core and the gui.
+        vae = new Vae();
+        vui = new Vui(vae, configurer);
     }
 
 }
