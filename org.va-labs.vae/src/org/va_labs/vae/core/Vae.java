@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.6 2005/01/11 00:04:49 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.7 2005/02/20 12:31:08 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -26,6 +26,11 @@ public class Vae {
      * Unique vae instance driving the application.
      */
     private static Vae vae = null;
+    
+    /**
+     * Indicates if we are in debug mode.
+     */
+    public static final boolean VAE__DEBUG = true;
 
     /**
      * We are facing a fatal error, and Vae should be trying to quit safely.
@@ -121,6 +126,9 @@ public class Vae {
      */
     public void acknowledgeError(String vaeModule, String errorMessage,
             String reasonMessage, int moduleStatus, Exception e) {
+        if (VAE__DEBUG) {
+            System.err.println("Catched exception : "+e);
+        }
         vui.acknowledgeError(vaeModule, errorMessage, reasonMessage,
                 moduleStatus, e);
     }
@@ -145,6 +153,19 @@ public class Vae {
             String warningReason, int moduleStatus, Exception e) {
         vui.acknowledgeWarning(vaeModule, warningMessage, warningReason,
                 moduleStatus, e);
+        if (VAE__DEBUG) {
+            System.err.println("Catched exception : "+e);
+        }
+    }
+    
+    /**
+     * The current project is the project that is being edited.
+     * 
+     * @return the current project.
+     */
+    public Project getCurrentProject()
+    {
+        return currentProject;
     }
 
     /**
@@ -184,7 +205,7 @@ public class Vae {
      * 
      * @return true if one of the project needs to be saved.
      */
-    public boolean isDirty() {
+    public boolean hasDirty() {
         Collection values = projects.values();
         for (Iterator i = values.iterator(); i.hasNext();) {
             Project p = (Project) i.next();
@@ -206,7 +227,8 @@ public class Vae {
             antLoader.setBuildFile(filename);
             try {
                 antLoader.loadBuild();
-                vui.displayProject((Project) projects.get(filename));
+                Project project = (Project) projects.get(filename);
+                vui.displayProject(project);
             } catch (Exception e) {
                 exceptionHandler.handle(e);
             }
@@ -224,7 +246,7 @@ public class Vae {
     public void quit() {
         int projectsNumber = projects.size();
 
-        if (isDirty()) {
+        if (hasDirty()) {
             Object toSave[] = vui.getToSave();
             saveProjects(toSave);
             System.exit(0);
