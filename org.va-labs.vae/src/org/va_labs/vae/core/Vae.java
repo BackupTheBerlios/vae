@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.11 2005/03/05 15:43:55 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.12 2005/03/06 23:37:12 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -318,6 +318,37 @@ public class Vae {
     }
 
     /**
+     * Saves a given project in a specified file.
+     * 
+     * @param project
+     *            project to be saved.
+     * @param filePath
+     *            file in which the project needs to be saved.
+     */
+    public void saveAsProject(Project project, String filePath) {
+        vaeExport.toFile(project, filePath);
+    }
+
+    /**
+     * Saves the current project in its associated build file.
+     *  
+     */
+    public void saveCurrentProject() {
+        vaeExport.toFile(currentProject, currentProject.getFilePath());
+    }
+
+    /**
+     * Saves a given project.
+     * 
+     * @param project
+     *            project to be saved.
+     */
+    public void saveProject(Project project) {
+        System.out.println(project);
+        vaeExport.toFile(project, project.getFilePath());
+    }
+
+    /**
      * Saves specified projects. The export format is an xml build file.
      * 
      * @param toSave
@@ -326,12 +357,8 @@ public class Vae {
     public void saveProjects(Object[] toSave) {
         if (toSave != null) {
             for (int i = 0; i < toSave.length; i++) {
-                // TODO : Implement saveProjects.
-                System.out.println(((Project) toSave[i]).getName()
-                        + " should have been saved");
-                // vaeExport should throw VaeExportException in case of
-                // trouble, this call should be surrounded by a try/catch.
-                //              vaeExport.project2ant((Project) toSave[i]);
+                // TODO (saveProjects): Implement the method.
+                saveProject((Project) toSave[i]);
             }
         }
     }
