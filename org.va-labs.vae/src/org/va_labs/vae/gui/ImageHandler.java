@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: ImageHandler.java,v 1.6 2005/02/27 23:51:00 mojo_jojo Exp $
+ * $Id: ImageHandler.java,v 1.7 2005/03/05 14:39:14 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -50,7 +50,6 @@ public class ImageHandler {
         if (registry == null) {
             registry = new ImageRegistry();
             // Gets the resourceDir from the Messages.
-
             String resourceDir = Messages.getString("Resource_Dir");
             // Loads all the image that are in the ressource directory.
             File[] resources = (new File(resourceDir)).listFiles();
@@ -87,7 +86,6 @@ public class ImageHandler {
             StringBuffer url = new StringBuffer("file://"
                     + Messages.getString("Resource_Dir") + "/" + imagePath);
             int finalDot = imagePath.lastIndexOf(".");
-            System.out.println("Url: "+url.toString());
             registry.put(imagePath.substring(0, finalDot), ImageDescriptor
                     .createFromURL(new URL(url.toString())));
         } catch (MalformedURLException ex) {
