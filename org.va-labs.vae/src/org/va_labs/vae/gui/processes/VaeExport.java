@@ -1,9 +1,15 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: VaeExport.java,v 1.2 2005/03/05 15:47:40 mojo_jojo Exp $
+ * $Id: VaeExport.java,v 1.3 2005/03/06 23:29:36 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.processes;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
+import org.va_labs.vae.tag.project.Project;
 
 /**
  * @author mojo_jojo
@@ -36,5 +42,27 @@ public class VaeExport {
      */
     public VaeExport() {
         
+    }
+    
+    /**
+     * Saves a given project in a specified file.
+     * 
+     * @param project
+     *            project to be saved.
+     * @param filePath
+     *            file in which the project needs to be saved.
+     */
+    public void toFile(Project project, String filePath) {
+        StringBuffer buffer = project.toXml();
+        
+        try {
+            FileOutputStream ostream = new FileOutputStream(filePath);
+            PrintStream pstream = new PrintStream(ostream);
+            pstream.print(buffer);
+            pstream.close();
+        } catch (FileNotFoundException e) {
+            // TODO Hanldle FileNotFoundException at the vae level.
+            e.printStackTrace();
+        }
     }
 }
