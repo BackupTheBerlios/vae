@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.5 2004/10/11 19:44:25 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.6 2005/01/11 00:04:49 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -202,7 +202,7 @@ public class Vae {
      *            file name in a String.
      */
     public void openProject(String filename) {
-        if (!projects.containsValue(filename)) {
+        if (!projects.containsKey(filename)) {
             antLoader.setBuildFile(filename);
             try {
                 antLoader.loadBuild();
