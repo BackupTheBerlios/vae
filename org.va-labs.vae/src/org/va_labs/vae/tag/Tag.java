@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Tag.java,v 1.2 2005/02/20 12:40:17 mojo_jojo Exp $
+ * $Id: Tag.java,v 1.3 2005/02/26 00:56:06 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag;
 
@@ -19,10 +19,11 @@ import org.va_labs.vae.tag.project.Project;
  *         build file.
  * 
  * Some of the methods have a base implementation that is supposed to be
- * redefined by children classes for specific tags. Tags can have an xml name
- * and an "usual" name. The Xml name is the name of the tag in the build file,
- * whereas the "usual" name is the value of the attribute name or path if they
- * exist.
+ * redefined by children classes for specific tags.
+ * 
+ * Tags can have an xml name and an "usual" name. The Xml name is the name of
+ * the tag in the build file, whereas the "usual" name is the value of the
+ * attribute name or path if they exist.
  */
 public abstract class Tag {
 
@@ -67,8 +68,8 @@ public abstract class Tag {
     protected List attributes;
 
     /**
-     * Indicates wether the tag needs to be saved or not. if false, the
-     * project needs to be saved.
+     * Indicates wether the tag needs to be saved or not. if false, the project
+     * needs to be saved.
      */
     protected boolean clean;
 
@@ -76,7 +77,7 @@ public abstract class Tag {
      * Project to which this tag is connected
      */
     protected Project currentProject;
-    
+
     /**
      * "usual" name of the tag. Value of the attribute name or path.
      */
@@ -99,7 +100,7 @@ public abstract class Tag {
      */
     public Tag() {
         clean = true;
-        currentProject = Vae.getVae().getCurrentProject();
+        currentProject = Vae.getInstance().getCurrentProject();
         attributes = new ArrayList();
         nestedElements = new ArrayList();
     }
@@ -381,24 +382,25 @@ public abstract class Tag {
      */
     public void setClean(boolean status) {
         clean = status;
-        
+
         // Sets the status of the project it is linked to if there is one.
         if (currentProject != null) {
-	        currentProject.setClean(status);
+            currentProject.setClean(status);
         }
     }
-    
+
     /**
      * Sets the current project for this tag.
      * 
-     * The given project is set as the current project for all the children 
+     * The given project is set as the current project for all the children
      * elements of this tag.
      * 
-     * @param project Project to which this tag is linked.
+     * @param project
+     *            Project to which this tag is linked.
      */
     public void setCurrentProject(Project project) {
         currentProject = project;
-        Iterator i = nestedElements.iterator(); 
+        Iterator i = nestedElements.iterator();
         while (i.hasNext()) {
             Tag tag = (Tag) i.next();
             tag.setCurrentProject(project);
