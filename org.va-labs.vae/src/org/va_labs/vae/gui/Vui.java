@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.4 2004/10/11 19:45:56 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.5 2005/01/11 00:05:14 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -26,6 +26,7 @@ import org.va_labs.vae.gui.tag.project.SwtProject;
 import org.va_labs.vae.gui.view.datainfo.DataInfoView;
 import org.va_labs.vae.gui.view.datatree.DataTreeView;
 import org.va_labs.vae.tag.project.Project;
+import org.va_labs.vae.tag.workspace.SwtWorkspace;
 
 /**
  * @author mojo_jojo
@@ -81,6 +82,11 @@ public class Vui {
      * Workbench Configurer used to get access to gui subcomponents.
      */
     private IWorkbenchWindowConfigurer windowConfigurer;
+
+    /**
+     * Workspace of the visual ant editor.
+     */
+    private SwtWorkspace workspace;
 
     /**
      * Initialization of the Vae User Interface. Registers the vae core, and
@@ -169,11 +175,15 @@ public class Vui {
      *            project to be displayed.
      */
     public void displayProject(Project project) {
-        dataTreeView.setTreeInput(new SwtProject(project));
+        workspace.addProject(new SwtProject(project, workspace));
+        dataTreeView.setTreeInput(workspace);
+        // TODO: Checks wether we need to refresh the tree display in
+        // displayProject.
     }
 
     /**
-     * Gets the currently active project.
+     * Gets the currently active project. TODO: Implement the getActiveProject
+     * method.
      * 
      * @return the Project object referencing the active project.
      */
@@ -250,13 +260,15 @@ public class Vui {
     }
 
     /**
-     * Registers the DataTreeView for this vui.
+     * Registers the DataTreeView for this vui, and sets the workspace that will
+     * be its input.
      * 
      * @param treeView
      *            the DataTreeView in charge of the tree view.
      */
     public void registerTreeView(DataTreeView treeView) {
         dataTreeView = treeView;
+        workspace = new SwtWorkspace();
     }
 
     /**
