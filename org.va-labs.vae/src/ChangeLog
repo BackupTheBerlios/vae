@@ -350,3 +350,26 @@
 	attribute of a project.
 	* ProjectTreeContentProvider.java: Formated teh source code. Took out debug
 	statements.
+	
+07/03/2005 mojo_jojo
+	Take out references to the vui in the different actions:
+	* ExitAction.java (ExitAction): does not need a vui reference anymore.
+	(run): Gets the vae instance directlty through Vae.getInstance().
+	* Vui.java (quit): method not needed anymore, directly handled in the Vae
+	instance.
+	(openProject): method not needed anymore, directly handled in the Vae 
+	instance.
+	* NewAction.java (NewAction): does not need a vui reference anymore.
+	(run): Gets the vui instance directly through Vui.getInstance().
+	* OpenAction.java (OpenAction): does not need a vui reference anymore.
+	(run): Gets the vae instance directly through Vae.getInstance().
+	* RcpWorkbenchAdvisor.java (fillFileMenu): Updated to match the new 
+	OpenAction, NewAction and ExitAction constructors.
+	
+	Make it possible to open multiple build files with the same project name:
+	* SwtProject (getFilePath): Returns the path to the build file for the 
+	project.
+	* SwtWorkspace.java (addProject): Adds the filepath to the name of the 
+	project to be added in the case there is already one with that name.
+
+	* ProjectTreeLabelProvider.java: Formated the source code.
