@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: AntLoader.java,v 1.5 2005/03/05 15:47:19 mojo_jojo Exp $
+ * $Id: AntLoader.java,v 1.6 2005/03/06 23:30:09 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.processes;
 
@@ -19,9 +19,10 @@ import org.va_labs.vae.parser.IAntParser;
 /**
  * @author mojo_jojo
  * 
- * Loads build file, and transfers the results to the vae core. It's pretty much
- * a bonus to code this : the load is so fast that it doesn't really need this
- * kind of thing.
+ * Loads build file, and transfers the results to the vae core.
+ * 
+ * It's pretty much a bonus to code this : the load is so fast that it doesn't
+ * really need this kind of thing.
  */
 public class AntLoader implements IRunnableWithProgress {
 
@@ -39,7 +40,7 @@ public class AntLoader implements IRunnableWithProgress {
      * Nothing to be done for now.
      */
     public AntLoader() {
-        
+
     }
 
     /**
@@ -60,7 +61,9 @@ public class AntLoader implements IRunnableWithProgress {
 
     /**
      * Initialize the data : it's after this call that it is actually going to
-     * be used. Opens a specified build file. Defined in org.vae.xml.Xml
+     * be used. 
+     * 
+     * Opens a specified build file. Defined in org.vae.xml.Xml
      * 
      * @param filename
      *            the name of the build file to be opened.
