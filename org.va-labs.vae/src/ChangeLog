@@ -189,3 +189,22 @@
 	VAE__DEBUG flag is on.
 	(acknowledgeWarning): prints additional information to the console if the
 	VAE__DEBUG flag is on.
+	
+22/02/2004 mojo_jojo
+	Changing the name of the project if it has been edited:
+	* ProjectTreeLabelProvider.java (getText): Updated the method so it returns
+	an extra '*' to the project name if it is edited.
+	* DataCellModifier.java (modify): Asks for a refresh of all items relative
+	to the modified tag.
+	* Vui.java (refresh): New method used to refresh all items relative to a
+	motivated TagAttribute.
+	* DataInfoView.java (refresh): New method that refreshes an edited 
+	TagAttribute in the data table.
+	* DataTreeView.java (DataTreeView): Keeps a reference to the used 
+	SelectionChangedListener to deactivate it before a refresh (apparently a 
+	bug in SWT).
+	(refreshWorkspace): New method that refreshes the workspace used to 
+	display the various projects.
+	* SwtProject.java (getClean): New method returning the status of the 
+	project.
+	
