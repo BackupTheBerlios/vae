@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.10 2005/03/05 15:45:51 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.11 2005/03/06 23:36:16 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -304,21 +304,6 @@ public class Vui {
         if (!elementListeners.remove(listener)) {
             // TODO: Send the trouble to the exceptionHandler !
         }
-    }
-
-    /**
-     * Saves a given project in a specified file.
-     * 
-     * TODO: Implement saveProject.
-     * 
-     * @param project
-     *            name of the project to be saved.
-     * @param file
-     *            file in which the project needs to be saved.
-     */
-    public void saveProject(Project project, String file) {
-        System.out.println("Gui has been requested to save " + project + "in "
-                + file);
     }
 
     /**
