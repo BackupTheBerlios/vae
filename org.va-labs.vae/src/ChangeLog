@@ -286,12 +286,28 @@
 	Uses the Resource_Dir entry of the messages.properties to identify the 
 	resource directory.
 	(addToRegistery): Uses the Resource_Dir entry of the messages.properties to
-	identify the resource directory.
+	identify the resource directory. Fixed the url creation.
 	* ProjectTreeLabelProvider: Formated the source code.
-	
+
 27/02/2005 mojo_jojo
 	* ImageHandler.java (addToRegistry): Added a '/' to the Ressource dir so
 	even without a trailing / in the Resource_Dir entry in the 
 	messages.properties file it would still work.
 	* ProjectTreeLabelProvider: Took out some debug statements.
 	
+03/03/2005 mojo_jojo
+	Finishing the xml parser:
+	* Tag.java (setCharacters): New method to set the string between the 
+	opening and closing tag represented by the instance.
+	(getCharacters): New method to get the string between the opening and 
+	closing tag represented by the instance.
+	* SaxAntParser.java (characters): This method is called when there is text
+	between opening and closing tags in the xml file.
+	(endElement): Updates the Tag instance data regarding characters between
+	tags if necessary.
+	(toXml): Updated the method to take into account tags where there is text
+	in between.
+	
+04/03/2005 mojo_jojo
+	Architecture review, vae has to be independant of swt:
+	vae.java: Should not use antloader and vaeExport anymore.
