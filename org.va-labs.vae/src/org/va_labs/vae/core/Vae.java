@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.4 2004/09/05 20:29:46 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.5 2004/10/11 19:44:25 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -60,6 +60,11 @@ public class Vae {
      * processes involved.
      */
     private AntLoader antLoader;
+
+    /**
+     * Reference to the currently opened project.
+     */
+    private Project currentProject;
 
     /**
      * Module that handles exceptions for us.
@@ -230,7 +235,7 @@ public class Vae {
     /**
      * Register a projet in the list of opened projects. Calling this method for
      * a previously registered project overrides the previous data with the new
-     * one.
+     * one. The newly registered project becomes the current project.
      * 
      * @param buildLocation
      *            path + name to the build file. Used to keep one opened copy of
@@ -240,6 +245,7 @@ public class Vae {
      */
     public void registerProject(String buildLocation, Project project) {
         projects.put(buildLocation, project);
+        currentProject = project;
     }
 
     /**
