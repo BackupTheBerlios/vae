@@ -1,7 +1,7 @@
 /*
  * Created on Dec 22, 2004
  *
- * $Id: SwtWorkspace.java,v 1.1 2005/01/11 00:03:46 mojo_jojo Exp $
+ * $Id: SwtWorkspace.java,v 1.2 2005/03/07 21:22:10 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag.workspace;
 
@@ -71,6 +71,7 @@ public class SwtWorkspace implements ISwtElement {
 
     /**
      * Indicates that this element is a parent element of the tree.
+     * 
      * @return null.
      * @see org.va_labs.vae.gui.tag.ISwtElement#getParent()
      */
@@ -96,7 +97,7 @@ public class SwtWorkspace implements ISwtElement {
      */
     public void removeAttribute(String attributeName)
             throws NoSuchAttributeException {
-        
+
     }
 
     /**
@@ -140,6 +141,11 @@ public class SwtWorkspace implements ISwtElement {
      *            newly opened that should be added to the workspace.
      */
     public void addProject(SwtProject project) {
-        projects.put(project.getText(), project);
+        String name = project.getText();
+        if (projects.containsKey(name)) {
+            projects.put(name + "(" + project.getFilePath() + ")", project);
+        } else {
+            projects.put(name, project);
+        }
     }
 }
