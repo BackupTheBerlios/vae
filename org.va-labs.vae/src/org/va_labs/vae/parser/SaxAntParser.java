@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: SaxAntParser.java,v 1.3 2005/02/20 12:36:31 mojo_jojo Exp $
+ * $Id: SaxAntParser.java,v 1.4 2005/03/05 14:42:42 mojo_jojo Exp $
  */
 package org.va_labs.vae.parser;
 
@@ -34,6 +34,12 @@ import org.xml.sax.helpers.DefaultHandler;
  * and creates the corresponding Vae object.
  */
 public class SaxAntParser extends DefaultHandler implements IAntParser {
+
+    /**
+     * Holds the characters present between opening tags and closing tags in the
+     * xml file. It is nullified at each call of the endElement method.
+     */
+    private StringBuffer characters;
 
     /**
      * We save the currently parsed tag to manage the different nested tags
@@ -80,6 +86,27 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
     }
 
     /**
+     * Function used to catch charecters between xml tags.
+     * 
+     * @param ch
+     *            variable containing the actuall characters.
+     * @param start
+     *            index of the next letter to be considered.
+     * @param stop
+     *            index of the last letter to be considered.
+     * 
+     * TODO (characters): Implement the method.
+     */
+    public void characters(char[] ch, int start, int stop) {
+        if (characters == null) {
+            characters = new StringBuffer();
+        }
+        for (int i=start; i < stop; i++) {
+            characters.append(ch[i]);
+        }
+    }
+
+    /**
      * Check that the build file is valid. Defined in org.vae.xml.Xml
      * 
      * @see org.vae.xml.Xml
@@ -97,6 +124,10 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
      */
     public void endElement(String namespaceURI, String simpleName,
             String qualifiedName) {
+        if (characters != null) {
+            currentTag.setCharacters(characters);
+            characters = null;
+        }
         // The file has been entirely parsed : we can register
         // the information.
         if (qualifiedName.toLowerCase().equals("project")) {
