@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: SaxAntParser.java,v 1.2 2004/09/05 20:39:06 mojo_jojo Exp $
+ * $Id: SaxAntParser.java,v 1.3 2005/02/20 12:36:31 mojo_jojo Exp $
  */
 package org.va_labs.vae.parser;
 
@@ -182,6 +182,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
         } else if (qualifiedName.equalsIgnoreCase("target")) {
             //			System.out.print("Parsing a target ... ");
             SimpleTarget target = new SimpleTarget();
+            target.setCurrentProject(project);
             target.setTagName(qualifiedName);
             parseAttributes(attributes, target, qualifiedName);
             currentTag.addNestedElement(target);
@@ -191,6 +192,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
         } else if (qualifiedName.equalsIgnoreCase("property")) {
             //			System.out.print("Parsing a property ...");
             SimpleProperty property = new SimpleProperty();
+            property.setCurrentProject(project);
             property.setTagName(qualifiedName);
             parseAttributes(attributes, property, qualifiedName);
             currentTag.addNestedElement(property);
@@ -201,6 +203,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
             //			System.out.print("Parsing a taskdef ...");
             SimpleTaskDef taskdef = new SimpleTaskDef();
             taskdef.setTagName(qualifiedName);
+            taskdef.setCurrentProject(project);
             parseAttributes(attributes, taskdef, qualifiedName);
             currentTag.addNestedElement(taskdef);
             tags.add(currentTag);
@@ -212,6 +215,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
                 // Dealing with a task here
                 SimpleTask task = new SimpleTask(qualifiedName);
                 task.setTagName(qualifiedName);
+                task.setCurrentProject(project);
                 parseAttributes(attributes, task, qualifiedName);
                 currentTag.addNestedElement(task);
                 tags.add(currentTag);
@@ -222,6 +226,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
                 //				System.out.print("Parsing a generic tag ... ");
                 GenericElement element = new GenericElement(qualifiedName);
                 element.setTagName(qualifiedName);
+                element.setCurrentProject(project);
                 parseAttributes(attributes, element, qualifiedName);
                 currentTag.addNestedElement(element);
                 tags.add(currentTag);
