@@ -1,11 +1,11 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: TagAttribute.java,v 1.1 2004/08/17 22:35:25 mojo_jojo Exp $
+ * $Id: TagAttribute.java,v 1.2 2004/09/05 00:11:28 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
-import org.va_labs.vae.core.definitions.Tag;
+import org.va_labs.vae.tag.Tag;
 
 /**
  * @author mojo_jojo
