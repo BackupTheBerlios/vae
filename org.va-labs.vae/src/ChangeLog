@@ -190,7 +190,7 @@
 	(acknowledgeWarning): prints additional information to the console if the
 	VAE__DEBUG flag is on.
 	
-22/02/2004 mojo_jojo
+22/02/2005 mojo_jojo
 	Changing the name of the project if it has been edited:
 	* ProjectTreeLabelProvider.java (getText): Updated the method so it returns
 	an extra '*' to the project name if it is edited.
@@ -208,3 +208,68 @@
 	* SwtProject.java (getClean): New method returning the status of the 
 	project.
 	
+23/02/2005 mojo_jojo
+	* OpenAction.java (run): Fixed the method so it doesn't try to open a file
+	when the user presses on cancel.
+	
+	* Vui.java (setCurrentElement): Took out debug statements.
+	* ProjectTreeLabelProvider.java (getText): Took out debug statements.
+	* DataCellModifier.java (modify): Calls the handle method of the 
+	ExceptionHandler.
+	
+	* Vae.java (quit): Doesn't quit when the user cancels the action of quitting.
+	(getVae): Renamed as getInstance.
+	
+	Enhancing global architecture (continued):
+	* Vae.java (registerVui) : The vui is now created in  the Vae constructor.
+	(Vae) : Constructs the user interface and passes it to the 
+	ExceptionHandler.
+	(getVui) : New method that returns the current user interface.
+	* Vui.java (getVui): Renamed as getInstance.
+	* RcpWorkbenchAdvisor.java (preWindowOpen): Changed the function to use the
+	new architecture. Took out the coolbar as it is not used for now.
+	* DataInfoView.java (DataInfoView): Uses the new Vui.getInstance() method
+	to get a reference to the user interface.
+	* DataTreeView.java (DataTreeView): Uses the new Vui.getInstance() method
+	to get a reference to the user interface.
+	* ProjectTreeListener.java (ProjectTreeListener): Uses the new 
+	Vui.getInstance() method to get a reference to the user interface.
+	* ExceptionHandler.java: Gets the vae instance that is used to handle the
+	exceptions through Vae.getInstance(), at each use of a method (not saved as
+	a reference).
+	
+	Enhancing exception handling (part 1):
+	* IllegalAttributeException.java (IllegalAttributeException): Added the 
+	list of legal attributes to the reason message.
+	
+24/02/2005 mojo_jojo
+	Enhancing global architecture (end):
+	* Vui.java (getToSave): Get the vae instance in use through 
+	Vae.getInstance().
+	(openProject): Get the vae instance in use through Vae.getInstance().
+	(quit): Get the vae instance in use through Vae.getInstance().
+	(registerVae): This function is not used anymore.
+	AntLoader.java (AntLoader): gets the parser at runtime from the Vae 
+	instance.
+	(run): Gets the parser and the current Vae instance at runtime.
+	(setCurrentParser): Not used anymore.
+	* Vae.java (initAntLoader): Updated to use the new achitecture.
+	* DataCellModifier.java (modify): Obtains the user interface through 
+	the vae instance.
+	
+25/02/2005 mojo_jojo
+	Enhancing exception handling (part2):
+	* Vae.java (getExceptionHandler): New method that returns the 
+	exceptionHandler for the Vae instance.
+	* DataCellModifier (modify): Gets the exceptionHandler from Vae to
+	handle exceptions in case they occur.
+	* ExceptionHandler (handle): Surcharged one more time to handle 
+	IllegalAttributeExceptions.
+	* VaeException.java: Made all class variables protected.
+	* NoSuchAttributeException.java : Formated the source code, took out the 
+	todo.
+	* Tag.java: Formated the source code. 
+	(Tag): gets the vae instance that is used to get the current project using
+	Vae.getInstance().
+	
+	* SimpleProject.java: Formated the source code.
