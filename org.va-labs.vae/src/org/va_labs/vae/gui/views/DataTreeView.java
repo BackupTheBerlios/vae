@@ -1,22 +1,22 @@
 /*
  * Created on Aug 4, 2004
  *
- * $Id: DataTreeView.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: DataTreeView.java,v 1.2 2004/08/20 19:49:04 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.views;
 
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
-import org.va_labs.vae.gui.views.ProjectTreeContentProvider;
-import org.va_labs.vae.gui.views.ProjectTreeLabelProvider;
+import org.va_labs.vae.core.Vae;
+import org.va_labs.vae.gui.views.elements.SwtVae;
 
 /**
  * @author mojo_jojo
  * This view shows a tree of the differents tags of the ant project file.
- * TODO Implement the DataTreeView. 
  */
 public class DataTreeView extends ViewPart 
 {
@@ -32,12 +32,18 @@ public class DataTreeView extends ViewPart
         // Indicates the title of the view.
         setPartName(Messages.getString("Data_Tree"));
         
+        parent.setLayout(new FillLayout());
+        
         // Setting up the TreeViewer.
-//		TreeViewer treeViewer = new TreeViewer(parent, 
-//			SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
-//		
-//		treeViewer.setContentProvider(new ProjectTreeContentProvider());
-//		treeViewer.setLabelProvider(new ProjectTreeLabelProvider());
+		TreeViewer treeViewer = new TreeViewer(parent, 
+			SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
+		
+		// Initialise the main component and it's Swt extention.
+		SwtVae swtVae = new SwtVae(new Vae());
+		
+		treeViewer.setContentProvider(new ProjectTreeContentProvider());
+		treeViewer.setLabelProvider(new ProjectTreeLabelProvider());
+		treeViewer.setInput(swtVae);
     }
 
     /**

@@ -1,11 +1,11 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeContentProvider.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: ProjectTreeContentProvider.java,v 1.2 2004/08/20 19:49:04 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.views;
 
-import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.va_labs.vae.gui.views.elements.SwtElement;
 
@@ -13,8 +13,7 @@ import org.va_labs.vae.gui.views.elements.SwtElement;
  * @author mojo_jojo
  * This class handles the content of the Project Tree.
  */
-public class ProjectTreeContentProvider implements IContentProvider {
-
+public class ProjectTreeContentProvider implements ITreeContentProvider {
     
     /**
      * Disposes of this ContentProvider.
@@ -31,6 +30,7 @@ public class ProjectTreeContentProvider implements IContentProvider {
 	 * @return The children in a Object array.
 	 */
 	public Object[] getChildren(Object object) {
+	    System.out.println("Call to getChildren captured.");
 		if(object instanceof SwtElement) {
 			return ((SwtElement) object).getChildren();
 		} else {
@@ -47,6 +47,7 @@ public class ProjectTreeContentProvider implements IContentProvider {
 	 */
 	public Object getParent(Object arg0) 
 	{
+	    System.out.println("Call to getParent captured.");
 		if(arg0 instanceof SwtElement) {
 			return ((SwtElement) arg0).getParent();
 		} else {
@@ -62,6 +63,7 @@ public class ProjectTreeContentProvider implements IContentProvider {
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
 	 */
 	public boolean hasChildren(Object object) {
+	    System.out.println("Call to hasChildren captured");
 		if(object instanceof SwtElement) {
 			return ((SwtElement) object).hasChildren();
 		} else {
@@ -76,6 +78,7 @@ public class ProjectTreeContentProvider implements IContentProvider {
 	 */
 	public Object[] getElements(Object object) 
 	{
+	    System.out.println("Call to getElements captured "+object);
 		if (object instanceof SwtElement) {
 			return ((SwtElement) object).getChildren();
 		} 
@@ -90,7 +93,7 @@ public class ProjectTreeContentProvider implements IContentProvider {
      * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
      */
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-
+        	System.out.println("Call to the inputChanged captured "+newInput);
     }
 
 }
