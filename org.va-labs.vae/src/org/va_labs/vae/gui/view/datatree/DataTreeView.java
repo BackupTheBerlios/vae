@@ -1,7 +1,7 @@
 /*
  * Created on Aug 4, 2004
  *
- * $Id: DataTreeView.java,v 1.4 2005/01/11 00:09:16 mojo_jojo Exp $
+ * $Id: DataTreeView.java,v 1.5 2005/02/22 23:04:56 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -13,6 +13,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.gui.view.datatree.listener.ProjectTreeListener;
+import org.va_labs.vae.tag.workspace.SwtWorkspace;
 
 /**
  * @author mojo_jojo
@@ -26,6 +27,8 @@ public class DataTreeView extends ViewPart {
      * Reference to the treeViewer displaying the project Tree.
      */
     private TreeViewer projectTree;
+
+    private ProjectTreeListener treeListener;
 
     /**
      * Register the view to the vui instance.
@@ -55,8 +58,25 @@ public class DataTreeView extends ViewPart {
         projectTree.setLabelProvider(new ProjectTreeLabelProvider());
 
         // Setting up the listeners
-        projectTree.addSelectionChangedListener(new ProjectTreeListener(
-                projectTree.getTree()));
+        treeListener = new ProjectTreeListener(projectTree.getTree());
+        projectTree.addSelectionChangedListener(treeListener);
+    }
+
+    /**
+     * Refreshes the current project in the tree.
+     * 
+     * Uses a horrible hack so data table keeps showing the same information.
+     * Tried to get the selection, refresh, then reset the selection, but it
+     * doesn't work !
+     * 
+     * @param workspace
+     *            workspace element containing all the information to be
+     *            displayed.
+     */
+    public void refreshWorkspace(SwtWorkspace workspace) {
+        projectTree.removeSelectionChangedListener(treeListener);
+        projectTree.refresh();
+        projectTree.addSelectionChangedListener(treeListener);
     }
 
     /**
