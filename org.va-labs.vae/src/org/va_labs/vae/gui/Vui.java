@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.6 2005/02/20 12:34:24 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.7 2005/02/22 22:54:50 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.dialogs.ListSelectionDialog;
+import org.va_labs.vae.core.TagAttribute;
 import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.dialog.SaveFilesContentProvider;
 import org.va_labs.vae.gui.dialog.SaveFilesLabelProvider;
@@ -177,8 +178,6 @@ public class Vui {
     public void displayProject(Project project) {
         workspace.addProject(new SwtProject(project, workspace));
         dataTreeView.setTreeInput(workspace);
-        // TODO: Checks wether we need to refresh the tree display in
-        // displayProject.
     }
 
     /**
@@ -233,6 +232,16 @@ public class Vui {
      */
     public void quit() {
         vae.quit();
+    }
+    
+    /**
+     * Refreshes everything that is relative to this tag.
+     * 
+     * @param tagAttribute attribute that has been modified.
+     */
+    public void refresh(TagAttribute tagAttribute) {
+        dataTreeView.refreshWorkspace(workspace);
+        dataInfoView.refresh(tagAttribute);
     }
 
     /**
@@ -318,7 +327,7 @@ public class Vui {
     public void setCurrentElement(ISwtElement element) {
         currentElement = element;
         updateElementListeners();
-        System.out.println("Updated the current element");
+        System.out.println("Vui.setCurrentElement");
     }
 
     /**
@@ -352,9 +361,11 @@ public class Vui {
 
     /**
      * Tells all the registered Element Listeners that the current element has
-     * been changed. Note: We should be careful if some day one listener has the
-     * ability to update the current element, he could be signaled of that
-     * change and that could lead to something inconvenient or worse (problems).
+     * been changed.
+     * 
+     * Note: We should be careful if some day one listener has the ability to
+     * update the current element, he could be signaled of that change and that
+     * could lead to something inconvenient or worse (problems).
      */
     private void updateElementListeners() {
         Iterator i = elementListeners.iterator();
