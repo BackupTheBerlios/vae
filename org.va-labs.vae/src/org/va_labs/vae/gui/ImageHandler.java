@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: ImageHandler.java,v 1.2 2004/09/05 20:30:48 mojo_jojo Exp $
+ * $Id: ImageHandler.java,v 1.3 2004/09/05 22:15:24 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -54,7 +54,7 @@ public class ImageHandler {
             registry = new ImageRegistry();
             // Loads all the image that are in the ressource directory.
             File[] resources = (new File(resourceDir.toString())).listFiles();
-            if (resources.length > 0) {
+            if (resources != null) {
                 for (int i = 0; i < resources.length; i++) {
                     File resource = resources[i];
                     if (resource.isFile()) {
