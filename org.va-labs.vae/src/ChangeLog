@@ -55,3 +55,6 @@
 	the tree when needed.
 	(setTreeInput): This new method enables to define the input for the project
 	tree of the DataTreeView.
+	
+	* ImageHandler.java (getRegistry): Changed the test to avoid error messages
+	if the resources directory is not found.
