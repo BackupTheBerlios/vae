@@ -289,4 +289,9 @@
 	identify the resource directory.
 	* ProjectTreeLabelProvider: Formated the source code.
 	
+27/02/2005 mojo_jojo
+	* ImageHandler.java (addToRegistry): Added a '/' to the Ressource dir so
+	even without a trailing / in the Resource_Dir entry in the 
+	messages.properties file it would still work.
+	* ProjectTreeLabelProvider: Took out some debug statements.
 	
