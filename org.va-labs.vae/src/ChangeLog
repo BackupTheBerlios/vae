@@ -1,0 +1,57 @@
+05/09/2004 mojo_jojo
+	Makes Vae and Vui as singletons:
+	* Vae.java (Vae): The constructor is now private.
+	(getVae): Added this method that returns the core vae instance. The 
+	instance is created if needed.
+	* Vui.java (Vui): The constructor is now private. It registers the vae core
+	instance, and register itself to it.
+	(getVui): Added this method that returns the core vui intance. The instance
+	is created if needed.
+	(registerConfigurer): The IWorkbenchWindowConfigurer of the gui can be 
+	registered through this new method.
+	* RcpWorkbenchAdvisor (preWindowOpen): Does not instanciate a vae and a 
+	vui but uses the static getVae and getVui methods instead. Registers the 
+	window configurer inside the vui through registerConfigurer.
+	Took out the reference to the vae core.
+	
+	Making the AntLoader and IAntParser as independant as possible:
+	* AntLoader.java (open): This new method will take care of opening the
+	build file. Moved from IAntParser.
+	(close): This new method will take care of closing the build file. Moved
+	from IAntParser.
+	(AntLoader): Doesn't need any parameter anymore. It instanciate the parser
+	itself, and get the vae user interface from the static method.
+	(run): The project data is now transfered to the vae core, and not the 
+	user interface.
+	* VaeInitException.java: Created this exception to signal module 
+	initialization troubles.
+	* IAntParser.java (close): Took out this method as it is not specific 
+	parsing job. Will be moved to the AntLoader.
+	(open): Took out this method as it is not specific parsing job. 
+	Will be moved to the AntLoader.
+	(parse): Now the method takes as an argument the file to be parsed.
+	* SaxAntParser.java (SaxAntParser): Does not register the vae instance
+	anymore. All troubles will be signaled through exceptions.
+	(close): Taken out to follow the new IAntParser interface.
+	(open): Taken out to follow the new IAntParser interface.
+	
+	Enabling Vae to open build files:
+	* Vae.java: The projects ArrayList becomes a HashMap to garantee that each
+	build file will be loaded once and only once.
+	(openProject): Implementation of the method. The method checks if the project
+	has been previously opened before loading and parsing the build file.
+	(Vae): Initiliaze the antLoader.
+	(initAntLoader): This new methods handle the ant loader initialization. It is
+	called from the constructor, but might be called later on by the exception 
+	handler as well.
+	(registerProject): This new method is used by the AntLoader to transfer 
+	project data once the build file has been parsed.
+	* Vui.java (registerTreeView): This new methods registers the DataTreeView
+	for the vui.
+	(displayProject): The method updates the input of the project tree.
+	* DataTreeView.java (createPartControl): Took out the creation of a vae
+	instance as it is done when the WorkbenchAdvisor initializes vae.
+	(DataTreeView): Registers the view in the Vui so it can set the input of 
+	the tree when needed.
+	(setTreeInput): This new method enables to define the input for the project
+	tree of the DataTreeView.
