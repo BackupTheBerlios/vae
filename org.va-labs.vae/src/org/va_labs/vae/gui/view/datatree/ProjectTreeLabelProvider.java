@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeLabelProvider.java,v 1.3 2005/01/11 00:10:26 mojo_jojo Exp $
+ * $Id: ProjectTreeLabelProvider.java,v 1.4 2005/02/22 23:05:23 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -11,6 +11,7 @@ import org.eclipse.swt.graphics.Image;
 import org.va_labs.vae.gui.ImageHandler;
 import org.va_labs.vae.gui.tag.ISwtElement;
 import org.va_labs.vae.gui.tag.SwtNestedElement;
+import org.va_labs.vae.gui.tag.project.SwtProject;
 import org.va_labs.vae.gui.tag.property.SwtProperty;
 import org.va_labs.vae.gui.tag.target.SwtTarget;
 import org.va_labs.vae.gui.tag.task.SwtTask;
@@ -85,7 +86,14 @@ public class ProjectTreeLabelProvider implements ILabelProvider {
      * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
      */
     public String getText(Object element) {
-        if (element instanceof ISwtElement) {
+        if (element instanceof SwtProject) {
+            String name = ((ISwtElement) element).getText();
+            if (!((SwtProject) element).getClean()) {
+                name += " *";
+            }
+            System.out.println("returning "+name +" as project name");
+            return name;
+        } else if (element instanceof ISwtElement) {
             return ((ISwtElement) element).getText();
         } else {
             // TODO Use the exception handler to do something sensible here.
