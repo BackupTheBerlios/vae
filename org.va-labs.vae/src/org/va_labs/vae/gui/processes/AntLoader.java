@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: AntLoader.java,v 1.4 2005/02/26 00:38:48 mojo_jojo Exp $
+ * $Id: AntLoader.java,v 1.5 2005/03/05 15:47:19 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.processes;
 
@@ -12,7 +12,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.va_labs.vae.VaeInitException;
 import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.parser.IAntParser;
@@ -37,12 +36,9 @@ public class AntLoader implements IRunnableWithProgress {
     private StringBuffer buildLocation;
 
     /**
-     * Creates the process in charge of loading a build file.
-     * 
-     * @param coreVae
-     *            the core vae instance that pilots this loader.
+     * Nothing to be done for now.
      */
-    public AntLoader() throws VaeInitException {
+    public AntLoader() {
         
     }
 
