@@ -1,28 +1,104 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.2 2004/09/05 00:15:52 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
-import org.eclipse.swt.widgets.Composite;
-import org.va_labs.vae.core.definitions.Project;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.dialogs.ListSelectionDialog;
+import org.va_labs.vae.core.Vae;
+import org.va_labs.vae.gui.dialog.SaveFilesContentProvider;
+import org.va_labs.vae.gui.dialog.SaveFilesLabelProvider;
+import org.va_labs.vae.tag.project.Project;
 
 /**
  * @author mojo_jojo
  * Vae User Interface level methods.
  */
 public class Vui {
-
-    private Composite shell;
+    
     /**
-     * Saves the shell that we are using.
-     * @param window the main composite that will be used by subcomponents.
+     * Reference to the core vae object.
      */
-    public Vui() {
-        
+    private Vae vae;
+    
+    /**
+     * Workbench Configurer used to get access to gui subcomponents.
+     */
+    private IWorkbenchWindowConfigurer windowConfigurer;
+    
+    /**
+     * Saves a reference to the core vae component, and the main window
+     * of the user interface for further shell access.
+     * @param coreVae core vae component related to this gui.
+     * @param configurer IWorkbenchWindowConfigurer used to get access to gui
+     * subcomponents.
+     */
+    public Vui(Vae coreVae, IWorkbenchWindowConfigurer configurer) {
+        vae = coreVae;
+        windowConfigurer = configurer;
     }
     
+    /**
+	 * Prompts an error to the user.
+	 * @param vaeModule The module that issued this error.
+	 * @param errorMessage The error message.
+	 * @param reasonMessage The reason for this error message.
+	 * @param moduleStatus The status of the issuing module after the error.
+	 * @param e The exception that was raised because of the error (just send null
+	 * if no exception was the source of it).
+	 * @see org.eclipse.core.runtime.IStatus
+	 */
+	public void acknowledgeError(String vaeModule, String errorMessage, 
+			String reasonMessage, int moduleStatus, Exception e) {
+		if (reasonMessage == null) {
+			reasonMessage = e.getCause().toString();
+		}
+		
+		Status status = new Status(IStatus.ERROR, vaeModule, 
+				moduleStatus, reasonMessage, e);
+		
+		ErrorDialog.openError(windowConfigurer.getWindow().getShell(), 
+		        "Visual Ant Editor -- " + vaeModule + " error", errorMessage,
+		        status, IStatus.ERROR);
+	}
+    
+	/**
+	 * Prompts a warning to the user.
+	 * @param vaeModule The module that issued this warning.
+	 * @param warningMessage The warning message.
+	 * @param reasonMessage The reason for this warning message.
+	 * @param moduleStatus The status of the issuing module after the warning.
+	 * @param e The exception that was raised to issue this warning (just send null if 
+	 * no exception was the source of it).
+	 * @see org.eclipse.core.runtime.IStatus
+	 */
+	public void acknowledgeWarning(String vaeModule, String warningMessage, 
+	        String reasonMessage, int moduleStatus, Exception e) {
+	    // Creates a swt status for the swt warning dialog
+		Status status = new Status(IStatus.WARNING, vaeModule, 
+				moduleStatus, reasonMessage, e);
+		
+		ErrorDialog.openError(windowConfigurer.getWindow().getShell(), 
+		        "Visual Ant Editor -- "  +vaeModule+ "  warning", 
+		        warningMessage, status, IStatus.WARNING);
+	}
+	
+	/**
+	 * Displays a given project in the gui,
+	 * @param project project to be displayed.
+	 */
+	public void displayProject(Project project) {
+	    // TODO : Implement displayProject.
+	}
+	
     /**
      * Gets the currently active project.
      * @return the Project object referencing the active project.
@@ -34,11 +110,39 @@ public class Vui {
     }
     
     /**
+     * Enables access to the shell of this gui.
+     * @return the shell of this gui.
+     */
+    public Shell getShell() {
+        return windowConfigurer.getWindow().getShell();
+    }
+    
+    /**
+     * Presents a dialog with the resources that needs to be saved as
+	 * a list of checkboxed items. 
+	 * The dialog shows up only if at least one project needs to be saved. 
+	 * @return an array of projects that the user asked to save.
+     */
+    public Object[] getToSave() {
+        ListSelectionDialog dlg = new ListSelectionDialog(
+                windowConfigurer.getWindow().getShell(),
+                vae, 
+                new SaveFilesContentProvider(), 
+                new SaveFilesLabelProvider(),
+                "Select the resources to save : ");
+		dlg.setTitle("Resources to save.");
+		dlg.setMessage("Select the resources that should be saved : ");
+		dlg.setInitialSelections(vae.getDirtyProjects().toArray());
+		dlg.open();
+		return dlg.getResult();
+    }
+    
+    /**
      * Opens a build file and displays its content.
      * @param filename path to the build file to be loaded.
      */
     public void openProject(String filename) {
-        System.out.println("Gui has been requested to open "+filename);
+        vae.openProject(filename);
     }
     
     /**
@@ -59,10 +163,30 @@ public class Vui {
     }
     
     /**
-     * Signify a message to the user through the status bar.
-     * @param message message to be shown to the user.
-     */
-    public void signifyMessage(String message) {
-        System.out.println(message);
-    }
+	 * Signify an error message to the user.
+	 * The message is displayed in the status bar in red.
+	 * @param errorMessage
+	 */
+	public void signifyError(String errorMessage)
+	{
+	    IActionBarConfigurer actionConfigurer = 
+	        windowConfigurer.getActionBarConfigurer();
+	    IStatusLineManager statusManager = 
+	        actionConfigurer.getStatusLineManager();
+		statusManager.setErrorMessage(errorMessage);
+	}
+    
+    /**
+	 * Signify a message to the user the message is displayed in the status bar.  
+	 * @param message message to be displayed to the user.
+	 */
+	public void signifyMessage(String message) 
+	{
+	    IActionBarConfigurer actionConfigurer = 
+	        windowConfigurer.getActionBarConfigurer();
+	    IStatusLineManager statusManager = 
+	        actionConfigurer.getStatusLineManager();
+		statusManager.setMessage(message);
+		statusManager.update(true);
+	}
 }
