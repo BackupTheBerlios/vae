@@ -1,17 +1,18 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.3 2005/01/11 00:07:42 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.4 2005/02/20 12:45:12 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
@@ -63,27 +64,30 @@ public class DataInfoView extends ViewPart implements IElementListener {
         setPartName(Messages.getString("Data_Info"));
 
         // Setting up the TableViewer.
-        Table table = new Table(parent, SWT.BORDER | SWT.MULTI);
-        table.setLinesVisible(true);
-        table.setHeaderVisible(true);
-        TableColumn nameColumn = new TableColumn(table, SWT.NONE);
-        nameColumn.setText(Messages.getString("Name_Column"));
-        nameColumn.setWidth(70);
-        TableColumn valueColumn = new TableColumn(table, SWT.NONE);
-        valueColumn.setText(Messages.getString("Value_Column"));
-        valueColumn.setWidth(70);
-
-        tableViewer = new TableViewer(table);
-        tableViewer.setColumnProperties(properties);
-
-        CellEditor[] editors = { new TextCellEditor(table),
-                new TextCellEditor(table) };
-
-        tableViewer.setCellEditors(editors);
-
+        tableViewer = new TableViewer(parent, SWT.BORDER | SWT.MULTI);
+        
+        TableLayout layout = new TableLayout();
+        layout.addColumnData(new ColumnWeightData(50, true));
+        layout.addColumnData(new ColumnWeightData(50, true));
+        
+        tableViewer.getTable().setLayout(layout);
+        tableViewer.getTable().setLinesVisible(true);
+        tableViewer.getTable().setHeaderVisible(true);
+        
         tableViewer.setContentProvider(new DataTableContentProvider());
         tableViewer.setLabelProvider(new DataTableLabelProvider());
         tableViewer.setCellModifier(new DataCellModifier(tableViewer));
+        tableViewer.setCellEditors(new CellEditor[] {
+                new TextCellEditor(tableViewer.getTable()),
+                new TextCellEditor(tableViewer.getTable())
+        });
+        tableViewer.setColumnProperties(properties);
+        
+        TableColumn nameColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+        nameColumn.setText(Messages.getString("Name_Column"));
+        TableColumn dataColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+        dataColumn.setText(Messages.getString("Value_Column"));
+        
     }
 
     /**
