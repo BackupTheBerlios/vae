@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeLabelProvider.java,v 1.7 2005/02/27 23:50:03 mojo_jojo Exp $
+ * $Id: ProjectTreeLabelProvider.java,v 1.8 2005/03/07 21:22:35 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -17,7 +17,9 @@ import org.va_labs.vae.gui.tag.target.SwtTarget;
 import org.va_labs.vae.gui.tag.task.SwtTask;
 
 /**
- * @author mojo_jojo Provides labels to the project tree from the node.
+ * @author mojo_jojo 
+ * 
+ * Provides labels to the project tree from the node.
  */
 public class ProjectTreeLabelProvider implements ILabelProvider {
 
