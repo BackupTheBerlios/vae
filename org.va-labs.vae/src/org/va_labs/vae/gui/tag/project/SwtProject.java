@@ -1,7 +1,7 @@
 /*
  * Created on Sep 5, 2004
  *
- * $Id: SwtProject.java,v 1.2 2005/01/11 00:06:55 mojo_jojo Exp $
+ * $Id: SwtProject.java,v 1.3 2005/02/22 23:02:57 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.tag.project;
 
@@ -107,6 +107,10 @@ public class SwtProject implements ISwtElement {
             }
         }
         return children.toArray();
+    }
+    
+    public boolean getClean() {
+        return project.getClean();
     }
 
     /**
