@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Tag.java,v 1.4 2005/03/05 14:55:49 mojo_jojo Exp $
+ * $Id: Tag.java,v 1.5 2005/03/06 23:28:28 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag;
 
@@ -15,15 +15,15 @@ import org.va_labs.vae.parser.IllegalAttributeException;
 import org.va_labs.vae.tag.project.Project;
 
 /**
- * @author mojo_jojo Summaries the methods relative to each tags in the ant
- *         build file.
+ * @author mojo_jojo
+ * 
+ * Summaries the methods relative to each tags in the ant build file.
  * 
  * Some of the methods have a base implementation that is supposed to be
- * redefined by children classes for specific tags.
- * 
- * Tags can have an xml name and an "usual" name. The Xml name is the name of
- * the tag in the build file, whereas the "usual" name is the value of the
- * attribute name or path if they exist.
+ * redefined by children classes for specific tags. Tags can have an xml name
+ * and an "usual" name. The Xml name is the name of the tag in the build file,
+ * whereas the "usual" name is the value of the attribute name or path if they
+ * exist.
  */
 public abstract class Tag {
 
@@ -108,6 +108,7 @@ public abstract class Tag {
         currentProject = Vae.getInstance().getCurrentProject();
         attributes = new ArrayList();
         nestedElements = new ArrayList();
+        characters = new StringBuffer();
     }
 
     /**
@@ -170,6 +171,27 @@ public abstract class Tag {
         verifyTag(tag);
         nestedElements.add(tag);
         setClean(false);
+    }
+
+    /**
+     * Append characters to the characters associated to this Tag.
+     * 
+     * @param chars
+     *            Array containing the characters.
+     * @param start
+     *            start index of the interesting chars.
+     * @param lenght
+     *            number of characters that should be considers.
+     */
+    public void appendCharacters(char[] chars, int start, int length) {
+        for (int i = start, end = start + length; i < end; i++) {
+            if (chars[i] != '\t' && chars[i] != '\n' && chars[i] != '\r') {
+                // Ugly hack to avoid getting rogue white spaces !
+                if (chars[i] != ' ' || characters.length() != 0) {
+                    characters.append(chars[i]);
+                }
+            }
+        }
     }
 
     /**
@@ -490,32 +512,44 @@ public abstract class Tag {
         for (int i = 0; i < tabDepth; i++) {
             content.append("\t");
         }
-        // Saving the tag
-        content.append("<" + tagName + " ");
+        content.append("<" + tagName);
 
+        // Putting the attributes if any.
         for (Iterator i = attributes.iterator(); i.hasNext();) {
             TagAttribute attribute = (TagAttribute) i.next();
-            content.append(attribute.getName() + "=\"");
-            content.append(attribute.getValue() + "\" ");
+            content.append(" " + attribute.getName() + "=\"");
+            content.append(attribute.getValue() + "\"");
         }
-        content.append(">");
 
-        if (characters != null) {
-            content.append(characters);
+        int length = characters.length();
+        // Early check for nice text formating.
+        if (length == 0 && nestedElements.isEmpty()) {
+            content.append("/>");
+            tabDepth--;
         } else {
-            content.append("\n");
+            content.append(">\n");
+            // Putting characters if any.
+            if (characters.length() != 0) {
+                for (int i = -1; i < tabDepth; i++) {
+                    content.append("\t");
+                }
+                content.append(characters + "\n");
+            }
+
+            // Putting nested tags if any.
             for (Iterator i = nestedElements.iterator(); i.hasNext();) {
                 Tag tag = (Tag) i.next();
                 tabDepth++;
-                content.append(tag.toXml());
+                content.append(tag.toXml() +"\n");
             }
 
             for (int i = 0; i < tabDepth; i++) {
                 content.append("\t");
             }
             tabDepth--;
+
+            content.append("</" + tagName + ">");
         }
-        content.append("</" + tagName + ">\n");
         return content;
     }
 
