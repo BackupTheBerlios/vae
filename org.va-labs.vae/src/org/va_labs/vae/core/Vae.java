@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.7 2005/02/20 12:31:08 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.8 2005/02/23 16:53:49 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -248,8 +248,12 @@ public class Vae {
 
         if (hasDirty()) {
             Object toSave[] = vui.getToSave();
-            saveProjects(toSave);
-            System.exit(0);
+            if (toSave != null) {
+                saveProjects(toSave);
+                System.exit(0);
+            } else {
+                return;
+            }
         }
         System.exit(0);
     }
