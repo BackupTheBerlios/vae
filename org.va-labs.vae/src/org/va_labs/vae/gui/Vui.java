@@ -1,9 +1,13 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.3 2004/09/05 20:34:53 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.4 2004/10/11 19:45:56 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -16,7 +20,10 @@ import org.eclipse.ui.dialogs.ListSelectionDialog;
 import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.dialog.SaveFilesContentProvider;
 import org.va_labs.vae.gui.dialog.SaveFilesLabelProvider;
+import org.va_labs.vae.gui.listener.IElementListener;
+import org.va_labs.vae.gui.tag.ISwtElement;
 import org.va_labs.vae.gui.tag.project.SwtProject;
+import org.va_labs.vae.gui.view.datainfo.DataInfoView;
 import org.va_labs.vae.gui.view.datatree.DataTreeView;
 import org.va_labs.vae.tag.project.Project;
 
@@ -46,9 +53,24 @@ public class Vui {
     }
 
     /**
+     * Reference to the current SwtElement being considered by the user.
+     */
+    private ISwtElement currentElement;
+
+    /**
+     * Reference to the dataInfoView.
+     */
+    private DataInfoView dataInfoView;
+
+    /**
      * Reference to the dataTreeView.
      */
     private DataTreeView dataTreeView;
+
+    /**
+     * Reference to the registered ElementListeners.
+     */
+    private List elementListeners;
 
     /**
      * Reference to the core vae object.
@@ -68,6 +90,7 @@ public class Vui {
     private Vui() {
         vae = Vae.getVae();
         vae.registerVui(this);
+        elementListeners = new ArrayList();
     }
 
     /**
@@ -125,6 +148,18 @@ public class Vui {
         ErrorDialog.openError(windowConfigurer.getWindow().getShell(),
                 "Visual Ant Editor -- " + vaeModule + "  warning",
                 warningMessage, status, IStatus.WARNING);
+    }
+
+    /**
+     * Adds an ElementListener to the list. The listner will be kept informed
+     * each time the user changes the ISwtElement he/she considers.
+     * 
+     * @param listener
+     *            listener to be kept updated of changes to the current
+     *            ISwtElement.
+     */
+    public void addElementListener(IElementListener listener) {
+        elementListeners.add(listener);
     }
 
     /**
@@ -204,6 +239,17 @@ public class Vui {
     }
 
     /**
+     * Registers the DataInfoView for this vui. It instanciates the
+     * TreeSelectionListener if the tree is ready.
+     * 
+     * @param dataView
+     *            the DataInfoView in charge of the data table view.
+     */
+    public void registerInfoView(DataInfoView infoView) {
+        dataInfoView = infoView;
+    }
+
+    /**
      * Registers the DataTreeView for this vui.
      * 
      * @param treeView
@@ -224,6 +270,19 @@ public class Vui {
     }
 
     /**
+     * Removes an ElementListener from the list.
+     * 
+     * @param listener
+     *            listener to be taken out from the list.
+     */
+    public void removeElementListener(IElementListener listener) {
+        int index = elementListeners.indexOf(listener);
+        if (!elementListeners.remove(listener)) {
+            // TODO: Send the trouble to the exceptionHandler !
+        }
+    }
+
+    /**
      * Saves a given project in a specified file.
      * 
      * @param project
@@ -234,6 +293,20 @@ public class Vui {
     public void saveProject(Project project, String file) {
         System.out.println("Gui has been requested to save " + project + "in "
                 + file);
+    }
+
+    /**
+     * Used to set the current Element that is being considered by the user.
+     * This method calls updateElementListeners to inform the listeners of the
+     * change.
+     * 
+     * @param element
+     *            element currently viewed/edited by the user.
+     */
+    public void setCurrentElement(ISwtElement element) {
+        currentElement = element;
+        updateElementListeners();
+        System.out.println("Updated the current element");
     }
 
     /**
@@ -263,5 +336,19 @@ public class Vui {
                 .getStatusLineManager();
         statusManager.setMessage(message);
         statusManager.update(true);
+    }
+
+    /**
+     * Tells all the registered Element Listeners that the current element has
+     * been changed. Note: We should be careful if some day one listener has the
+     * ability to update the current element, he could be signaled of that
+     * change and that could lead to something inconvenient or worse (problems).
+     */
+    private void updateElementListeners() {
+        Iterator i = elementListeners.iterator();
+        while (i.hasNext()) {
+            IElementListener listener = (IElementListener) i.next();
+            listener.setCurrentElement(currentElement);
+        }
     }
 }
