@@ -323,3 +323,30 @@
 	* Vae.java (Vae): we initialize the reference to the VaeExport instance.
 	* VaeExport.java (getInstance): New method to get the VaeExport singleton.
 	(VaeExport): Nothing to be done in this for now.
+	
+06/03/2005 mojo_jojo
+	Prepare the Save feature and implement the Save as... feature:
+	* Project.java (getFilePath): New method to get the path to the build file
+	of the project.
+	(setFilePath): New method to set the path to the build file of the project.
+	* VaeExport.java (toFile): Implementation of the method.
+	* Vae.java (saveCurrentProject): New method to save the current project.
+	(saveAsProject): New method to save a project to a given path.
+	(saveProjects): Implementation of this method using saveProject.
+	* SaveAsAction.java (SaveAsAction): Took out the reference to the vui.
+	(run): Gets the vae instance through Vae.getInstance().
+	* RcpWorkbenchAdvisor.java (fillFileMenu): Updated to match the new SaveAsAction 
+	constructor.
+	* SaxAntParser.java (characters): Fixed the function (learn how to read the
+	doc mojo!).
+	* Tag.java (appendCharacters): New method used by the SaxAntParser to 
+	append the characters to each tag during the parsing.
+	(toXml): Fixed, and improve text layout.
+	* Vui.java (saveProject): Method removed as it's a core feature.
+	
+	* AntLoader.java: Formated the source code.
+	* OpenAction.java: Formated the source code.
+	* SimpleProject.java: Formated the source code, made description as a legal
+	attribute of a project.
+	* ProjectTreeContentProvider.java: Formated teh source code. Took out debug
+	statements.
