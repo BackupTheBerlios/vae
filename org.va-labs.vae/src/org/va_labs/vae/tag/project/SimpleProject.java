@@ -1,7 +1,7 @@
 /*
  * Created on Sep 5, 2004
  *
- * $Id: SimpleProject.java,v 1.2 2005/02/26 00:57:23 mojo_jojo Exp $
+ * $Id: SimpleProject.java,v 1.3 2005/03/06 23:27:18 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag.project;
 
@@ -32,17 +32,21 @@ public class SimpleProject extends Project {
     /**
      * Legal attributes for a Project
      */
-    private static String[] legalAttributes = { "name", "default", "basedir" };
+    private static String[] legalAttributes = { "name", "default", "basedir",
+            "description" };
 
     /**
-     * Base directory of the ant project. According to the ant specifications,
-     * the base directory is optional.
+     * Base directory of the ant project.
+     * 
+     * According to the ant specifications, the base directory is optional.
      */
     private StringBuffer baseDir;
 
     /**
-     * Name of the default task of the ant project. According to ant
-     * specifications, a project has to have at least one default target.
+     * Name of the default task of the ant project.
+     * 
+     * According to ant specifications, a project has to have at least one
+     * default target.
      */
     private String defaultTarget;
 
@@ -120,9 +124,10 @@ public class SimpleProject extends Project {
     }
 
     /**
-     * Adds a taskDef (user defined task) to this project. If the taskdef
-     * doesn't have a name, it receives a generic name TaskDefX, where X is a
-     * number incremented each time a new taskDef is defined.
+     * Adds a taskDef (user defined task) to this project.
+     * 
+     * If the taskdef doesn't have a name, it receives a generic name TaskDefX,
+     * where X is a number incremented each time a new taskDef is defined.
      * 
      * @param the
      *            taskDef to be added to the project.
@@ -132,10 +137,12 @@ public class SimpleProject extends Project {
     }
 
     /**
-     * Adds an unidentified tag to this project. This tags are basically at the
-     * level of targets, but are neigher properties nor targets. At one point
-     * this elements need to be integrated specifically, but we want at least to
-     * display them in the tree with a specific image.
+     * Adds an unidentified tag to this project.
+     * 
+     * This tags are basically at the level of targets, but are neigher
+     * properties nor targets. At one point this elements need to be integrated
+     * specifically, but we want at least to display them in the tree with a
+     * specific image.
      * 
      * @param unidentifiedTag
      *            the unidentified Tag to be added.
