@@ -1,7 +1,7 @@
 /*
  * Created on Jul 24, 2004
  *
- * $Id: RcpWorkbenchAdvisor.java,v 1.5 2005/02/26 00:29:17 mojo_jojo Exp $
+ * $Id: RcpWorkbenchAdvisor.java,v 1.6 2005/03/06 23:38:47 mojo_jojo Exp $
  */
 package org.va_labs.vae;
 
@@ -72,7 +72,7 @@ public class RcpWorkbenchAdvisor extends WorkbenchAdvisor {
 
         // Not ready yet.
         //		filemenu.add(new SaveAction(vui));
-        fileMenu.add(new SaveAsAction(vui, window));
+        fileMenu.add(new SaveAsAction(window));
         fileMenu.add(new Separator());
 
         fileMenu.add(new ExitAction(vui));
