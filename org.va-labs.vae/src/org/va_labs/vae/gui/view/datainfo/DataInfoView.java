@@ -1,7 +1,7 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.5 2005/02/22 23:04:23 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.6 2005/02/26 00:42:46 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
@@ -48,7 +48,7 @@ public class DataInfoView extends ViewPart implements IElementListener {
      * Registers the view to the vui instance.
      */
     public DataInfoView() {
-        Vui vui = Vui.getVui();
+        Vui vui = Vui.getInstance();
         vui.registerInfoView(this);
         // We will be kept informed of the user's focus.
         vui.addElementListener(this);
