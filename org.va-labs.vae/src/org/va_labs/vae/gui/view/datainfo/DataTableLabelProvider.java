@@ -1,7 +1,7 @@
 /*
  * Created on Aug 22, 2004
  *
- * $Id: DataTableLabelProvider.java,v 1.2 2004/10/11 19:52:28 mojo_jojo Exp $
+ * $Id: DataTableLabelProvider.java,v 1.3 2005/02/20 12:46:41 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
@@ -49,6 +49,8 @@ public class DataTableLabelProvider implements ITableLabelProvider {
             } else {
                 // TODO : Use the exception handler to do something sensible
                 // here.
+                return "Invalid column number. Please signal this problem" +
+                		" to the Vae development team";
             }
         }
         System.out
@@ -56,7 +58,7 @@ public class DataTableLabelProvider implements ITableLabelProvider {
         System.out
                 .println("Please signal this problem to the Vae development team.");
         // TODO : Use the exception handler to do something sensible here.
-        return null;
+        return "Invalid attribute received.";
     }
 
     /**
@@ -90,7 +92,7 @@ public class DataTableLabelProvider implements ITableLabelProvider {
      *      java.lang.String)
      */
     public boolean isLabelProperty(Object element, String property) {
-		return true;
+        return true;
     }
 
     /**
