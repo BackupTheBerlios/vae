@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.8 2005/02/23 16:54:43 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.9 2005/02/26 00:38:06 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -47,7 +47,7 @@ public class Vui {
      * 
      * @return the vui instance piloting the user interface.
      */
-    public static Vui getVui() {
+    public static Vui getInstance() {
         if (vui == null) {
             vui = new Vui();
         }
@@ -75,11 +75,6 @@ public class Vui {
     private List elementListeners;
 
     /**
-     * Reference to the core vae object.
-     */
-    private Vae vae;
-
-    /**
      * Workbench Configurer used to get access to gui subcomponents.
      */
     private IWorkbenchWindowConfigurer windowConfigurer;
@@ -95,8 +90,6 @@ public class Vui {
      *  
      */
     private Vui() {
-        vae = Vae.getVae();
-        vae.registerVui(this);
         elementListeners = new ArrayList();
     }
 
@@ -187,7 +180,7 @@ public class Vui {
      * @return the Project object referencing the active project.
      */
     public Project getActiveProject() {
-        return Vae.getVae().getCurrentProject();
+        return Vae.getInstance().getCurrentProject();
     }
 
     /**
@@ -201,12 +194,14 @@ public class Vui {
 
     /**
      * Presents a dialog with the resources that needs to be saved as a list of
-     * checkboxed items. The dialog shows up only if at least one project needs
-     * to be saved.
+     * checkboxed items.
+     * 
+     * The dialog shows up only if at least one project needs to be saved.
      * 
      * @return an array of projects that the user asked to save.
      */
     public Object[] getToSave() {
+        Vae vae = Vae.getInstance();
         ListSelectionDialog dlg = new ListSelectionDialog(windowConfigurer
                 .getWindow().getShell(), vae, new SaveFilesContentProvider(),
                 new SaveFilesLabelProvider(), "Select the resources to save : ");
@@ -224,14 +219,14 @@ public class Vui {
      *            path to the build file to be loaded.
      */
     public void openProject(String filename) {
-        vae.openProject(filename);
+        Vae.getInstance().openProject(filename);
     }
 
     /**
      * Handles a proper shutdown of the Visual Ant Editor.
      */
     public void quit() {
-        vae.quit();
+        Vae.getInstance().quit();
     }
 
     /**
@@ -277,16 +272,6 @@ public class Vui {
     public void registerTreeView(DataTreeView treeView) {
         dataTreeView = treeView;
         workspace = new SwtWorkspace();
-    }
-
-    /**
-     * Register the core vae instance that pilots this user interface.
-     * 
-     * @param coreVae
-     *            vae instance that pilots the vui instance.
-     */
-    public void registerVae(Vae coreVae) {
-        vae = coreVae;
     }
 
     /**
