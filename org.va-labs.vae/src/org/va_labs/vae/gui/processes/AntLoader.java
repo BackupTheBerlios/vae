@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: AntLoader.java,v 1.2 2004/09/05 20:36:02 mojo_jojo Exp $
+ * $Id: AntLoader.java,v 1.3 2004/10/11 19:48:09 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.processes;
 
@@ -59,7 +59,7 @@ public class AntLoader implements IRunnableWithProgress {
     }
 
     /**
-     * Loads the currenly set build file.
+     * Loads the currenly set build file and register it to the vae.
      * 
      * @see org.vae.core.BuildLoader#loadBuild()
      */
@@ -92,7 +92,7 @@ public class AntLoader implements IRunnableWithProgress {
     }
 
     /**
-     * Opens a build file, parses it and prompts the results to the user.
+     * Opens a build file, parses it and transfers the results to the vae core.
      * 
      * @see org.eclipse.jface.operation.IRunnableWithProgress#run(org.eclipse.core.runtime.IProgressMonitor)
      */
