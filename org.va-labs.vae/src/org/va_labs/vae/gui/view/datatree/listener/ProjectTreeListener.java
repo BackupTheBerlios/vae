@@ -1,7 +1,7 @@
 /*
  * Created on Sep 6, 2004
  *
- * $Id: ProjectTreeListener.java,v 1.1 2004/10/11 20:04:02 mojo_jojo Exp $
+ * $Id: ProjectTreeListener.java,v 1.2 2005/02/26 00:46:30 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree.listener;
 
@@ -51,7 +51,7 @@ public class ProjectTreeListener implements ISelectionChangedListener {
      *            tree we will be listening for changes.
      */
     public ProjectTreeListener(Tree tree) {
-        vui = Vui.getVui();
+        vui = Vui.getInstance();
         this.tree = tree;
     }
 
