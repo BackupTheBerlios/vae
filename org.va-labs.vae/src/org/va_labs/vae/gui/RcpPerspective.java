@@ -1,16 +1,16 @@
 /*
  * Created on Jul 24, 2004
  *
- * $Id: RcpPerspective.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: RcpPerspective.java,v 1.2 2004/09/05 00:14:11 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
-import org.va_labs.vae.gui.views.DataInfoView;
-import org.va_labs.vae.gui.views.DataTreeView;
-import org.va_labs.vae.gui.views.GraphicalView;
+import org.va_labs.vae.gui.view.datainfo.DataInfoView;
+import org.va_labs.vae.gui.view.datatree.DataTreeView;
+import org.va_labs.vae.gui.view.graphicalrepresentation.GraphicalView;
 
 /**
  * @author mojo_jojo
