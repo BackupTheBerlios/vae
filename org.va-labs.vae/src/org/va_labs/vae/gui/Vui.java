@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.11 2005/03/06 23:36:16 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.12 2005/03/07 21:25:50 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui;
 
@@ -229,23 +229,6 @@ public class Vui {
      */
     public void loadBuild() throws LoadFailedException {
         antLoader.loadBuild();
-    }
-
-    /**
-     * Opens a build file and displays its content.
-     * 
-     * @param filename
-     *            path to the build file to be loaded.
-     */
-    public void openProject(String filename) {
-        Vae.getInstance().openProject(filename);
-    }
-
-    /**
-     * Handles a proper shutdown of the Visual Ant Editor.
-     */
-    public void quit() {
-        Vae.getInstance().quit();
     }
 
     /**
