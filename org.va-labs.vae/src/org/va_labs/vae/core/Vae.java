@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.8 2005/02/23 16:53:49 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.9 2005/02/26 00:36:11 mojo_jojo Exp $
  */
 package org.va_labs.vae.core;
 
@@ -15,6 +15,8 @@ import org.va_labs.vae.VaeInitException;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.gui.processes.AntLoader;
 import org.va_labs.vae.gui.processes.VaeExport;
+import org.va_labs.vae.parser.IAntParser;
+import org.va_labs.vae.parser.SaxAntParser;
 import org.va_labs.vae.tag.project.Project;
 
 /**
@@ -26,7 +28,7 @@ public class Vae {
      * Unique vae instance driving the application.
      */
     private static Vae vae = null;
-    
+
     /**
      * Indicates if we are in debug mode.
      */
@@ -53,7 +55,7 @@ public class Vae {
      * 
      * @return the core Vae instance.
      */
-    public static Vae getVae() {
+    public static Vae getInstance() {
         if (vae == null) {
             vae = new Vae();
         }
@@ -75,6 +77,11 @@ public class Vae {
      * Module that handles exceptions for us.
      */
     private ExceptionHandler exceptionHandler;
+    
+    /**
+     * Parser that will load the build files.
+     */
+    private IAntParser parser;
 
     /**
      * Reference to the different projects that are currently opened by this
@@ -94,12 +101,15 @@ public class Vae {
     private Vui vui;
 
     /**
-     * Initialization of the Vae instance. Creates the exceptionHandler and a
-     * stack that will receive the projects. The AntLoader is initiliazed as
-     * well.
+     * Initialization of the Vae instance.
+     * 
+     * Gets (creates) The user interface.
+     * Creates the exceptionHandler and a stack that will receive the projects.
+     * The AntLoader is initiliazed as well.
      */
     private Vae() {
-        exceptionHandler = new ExceptionHandler(this);
+        vui = Vui.getInstance();
+        exceptionHandler = ExceptionHandler.getInstance();
         projects = new HashMap(5);
         try {
             initAntLoader();
@@ -127,7 +137,7 @@ public class Vae {
     public void acknowledgeError(String vaeModule, String errorMessage,
             String reasonMessage, int moduleStatus, Exception e) {
         if (VAE__DEBUG) {
-            System.err.println("Catched exception : "+e);
+            System.err.println("Catched Error exception : " + e);
         }
         vui.acknowledgeError(vaeModule, errorMessage, reasonMessage,
                 moduleStatus, e);
@@ -154,17 +164,25 @@ public class Vae {
         vui.acknowledgeWarning(vaeModule, warningMessage, warningReason,
                 moduleStatus, e);
         if (VAE__DEBUG) {
-            System.err.println("Catched exception : "+e);
+            System.err.println("Catched Warning exception : " + e);
         }
     }
     
+    /**
+     * Indicates the ant parser that is currently used.
+     * 
+     * @return the ant parser.
+     */
+    public IAntParser getAntParser() {
+        return parser;
+    }
+
     /**
      * The current project is the project that is being edited.
      * 
      * @return the current project.
      */
-    public Project getCurrentProject()
-    {
+    public Project getCurrentProject() {
         return currentProject;
     }
 
@@ -188,15 +206,36 @@ public class Vae {
         }
         return dirtyProjects;
     }
+    
+    /**
+     * Returns the ExceptionHandler for this vae instance.
+     * 
+     * @return the ExceptionHandler.
+     */
+    public ExceptionHandler getExceptionHandler() {
+        return exceptionHandler;
+    }
+    
+    /**
+     * Indicates the current Vae User Interface.
+     * 
+     * @return the Vae User Interface instance in charge.
+     */
+    public Vui getVui() {
+        return vui;
+    }
 
     /**
      * Initializes the ant loader.
      * 
+     * Creates the ant parser that will be used and indicates it to the user
+     * interface.
      * @throws VaeInitException
      *             if anything goes wrong.
      */
     private void initAntLoader() throws VaeInitException {
-        antLoader = new AntLoader(this);
+        parser = new SaxAntParser();
+        antLoader = new AntLoader();
     }
 
     /**
@@ -272,16 +311,6 @@ public class Vae {
     public void registerProject(String buildLocation, Project project) {
         projects.put(buildLocation, project);
         currentProject = project;
-    }
-
-    /**
-     * Registers the vui to this vae core.
-     * 
-     * @param gui
-     *            the user interface we use for this vae core.
-     */
-    public void registerVui(Vui gui) {
-        vui = gui;
     }
 
     /**
