@@ -1,11 +1,17 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.1 2004/08/17 22:41:51 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.2 2004/09/02 22:48:04 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.views;
 
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
 import org.va_labs.vae.Messages;
 
@@ -16,8 +22,19 @@ import org.va_labs.vae.Messages;
  */
 public class DataInfoView extends ViewPart 
 {
-
+	/**
+	 * ID of this view.
+	 */
     public final static String ID = "org.va_labs.vae.gui.views.DataInfoView";
+    
+    /**
+     * Name of the strings which we need to identify columns for cell
+     * modifiers.
+     */
+    private final String[] properties = new String[] {
+			Messages.getString("Name_Column"),
+			Messages.getString("Value_Column")
+	};
 
     /**
      * Creation of the Data Information view.
@@ -28,6 +45,31 @@ public class DataInfoView extends ViewPart
     public void createPartControl(Composite parent) 
     {
         setPartName(Messages.getString("Data_Info"));
+        
+        // Setting up the TableViewer.
+		Table table = new Table (parent, SWT.BORDER|SWT.MULTI);
+		table.setLinesVisible(true);
+		table.setHeaderVisible(true);
+		TableColumn nameColumn = new TableColumn(table, SWT.NONE);
+		nameColumn.setText("Name");
+		nameColumn.setWidth(150);
+		TableColumn valueColumn = new TableColumn(table, SWT.NONE);
+		valueColumn.setText("Value");
+		valueColumn.setWidth(150);
+
+		TableViewer tableViewer = new TableViewer(table);
+		tableViewer.setColumnProperties(properties);
+
+		CellEditor[] editors = {
+			new TextCellEditor(table),
+			new TextCellEditor(table)
+		};
+		
+		tableViewer.setCellEditors(editors);
+		
+		tableViewer.setContentProvider(new DataTableContentProvider());
+		tableViewer.setLabelProvider(new DataTableLabelProvider());
+		tableViewer.setCellModifier(new DataCellModifier(tableViewer));
     }
     
     /**
