@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeContentProvider.java,v 1.2 2004/09/05 20:37:28 mojo_jojo Exp $
+ * $Id: ProjectTreeContentProvider.java,v 1.3 2005/03/06 23:29:15 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -10,7 +10,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.va_labs.vae.gui.tag.ISwtElement;
 
 /**
- * @author mojo_jojo This class handles the content of the Project Tree.
+ * @author mojo_jojo 
+ * 
+ * This class handles the content of the Project Tree.
  */
 public class ProjectTreeContentProvider implements ITreeContentProvider {
 
@@ -88,13 +90,12 @@ public class ProjectTreeContentProvider implements ITreeContentProvider {
 
     /**
      * Notifies this content provider that the given viewer's input has been
-     * switched to a different element. For now this is not used.
+     * switched to a different element.
      * 
      * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
      *      java.lang.Object, java.lang.Object)
      */
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        System.out.println("New project tree input: " + newInput);
     }
 
 }
