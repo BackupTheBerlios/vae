@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: SaxAntParser.java,v 1.4 2005/03/05 14:42:42 mojo_jojo Exp $
+ * $Id: SaxAntParser.java,v 1.5 2005/03/06 23:28:52 mojo_jojo Exp $
  */
 package org.va_labs.vae.parser;
 
@@ -34,12 +34,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * and creates the corresponding Vae object.
  */
 public class SaxAntParser extends DefaultHandler implements IAntParser {
-
-    /**
-     * Holds the characters present between opening tags and closing tags in the
-     * xml file. It is nullified at each call of the endElement method.
-     */
-    private StringBuffer characters;
 
     /**
      * We save the currently parsed tag to manage the different nested tags
@@ -92,18 +86,13 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
      *            variable containing the actuall characters.
      * @param start
      *            index of the next letter to be considered.
-     * @param stop
-     *            index of the last letter to be considered.
+     * @param length
+     *            length of the text to be considered.
      * 
      * TODO (characters): Implement the method.
      */
-    public void characters(char[] ch, int start, int stop) {
-        if (characters == null) {
-            characters = new StringBuffer();
-        }
-        for (int i=start; i < stop; i++) {
-            characters.append(ch[i]);
-        }
+    public void characters(char[] ch, int start, int length) {
+        currentTag.appendCharacters(ch, start, length);
     }
 
     /**
@@ -124,10 +113,7 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
      */
     public void endElement(String namespaceURI, String simpleName,
             String qualifiedName) {
-        if (characters != null) {
-            currentTag.setCharacters(characters);
-            characters = null;
-        }
+
         // The file has been entirely parsed : we can register
         // the information.
         if (qualifiedName.toLowerCase().equals("project")) {
@@ -149,6 +135,16 @@ public class SaxAntParser extends DefaultHandler implements IAntParser {
         return project;
     }
 
+    /**
+     * Parses attributes and add them to the given tag.
+     * 
+     * @param attributes
+     *            attributes to be parsed.
+     * @param tag
+     *            tag that owns the attributes.
+     * @param tagType
+     *            type of the attribute (used for error message).
+     */
     private void parseAttributes(Attributes attributes, Tag tag, String tagType) {
         for (int i = 0; i < attributes.getLength(); i++) {
             String qName = attributes.getQName(i);
