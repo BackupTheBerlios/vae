@@ -1,7 +1,7 @@
 /*
  * Created on Sep 5, 2004
  *
- * $Id: SwtProject.java,v 1.3 2005/02/22 23:02:57 mojo_jojo Exp $
+ * $Id: SwtProject.java,v 1.4 2005/03/07 21:23:08 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.tag.project;
 
@@ -109,8 +109,22 @@ public class SwtProject implements ISwtElement {
         return children.toArray();
     }
     
+    /**
+     * Indicates the status of the project.
+     * 
+     * @return false if the project needs to be save.
+     */
     public boolean getClean() {
         return project.getClean();
+    }
+    
+    /**
+     * Returns the build file of the project.
+     * 
+     * @return the path the ant build file associated to the project.
+     */
+    public String getFilePath() {
+        return project.getFilePath();
     }
 
     /**
