@@ -1,7 +1,7 @@
 /*
  * Created on Aug 17, 2004
  *
- * $Id: OpenAction.java,v 1.3 2005/03/06 23:34:37 mojo_jojo Exp $
+ * $Id: OpenAction.java,v 1.4 2005/03/07 21:24:52 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.actions;
 
@@ -10,6 +10,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.Vui;
 
 /**
@@ -32,14 +33,11 @@ public class OpenAction extends Action {
     /**
      * Creates a OpenAction with a reference to the Vae User Interface.
      * 
-     * @param userInterface
-     *            the Vae User Interface that instanciate this object.
      * @param window
      *            the WorkbenchWindow that will give us a reference to the shell
      *            later.
      */
-    public OpenAction(Vui userInterface, IWorkbenchWindow window) {
-        vui = userInterface;
+    public OpenAction(IWorkbenchWindow window) {
         setText("&Open@Ctrl+O");
         setToolTipText("Open a build file");
         this.window = window;
@@ -58,7 +56,7 @@ public class OpenAction extends Action {
         dialog.setFileName("build.xml");
         String file = dialog.open();
         if (file != null) {
-            vui.openProject(file);
+            Vae.getInstance().openProject(file);
         }
     }
 }
