@@ -1,7 +1,7 @@
 /*
  * Created on Sep 4, 2004
  *
- * $Id: AntLoader.java,v 1.3 2004/10/11 19:48:09 mojo_jojo Exp $
+ * $Id: AntLoader.java,v 1.4 2005/02/26 00:38:48 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.processes;
 
@@ -16,7 +16,6 @@ import org.va_labs.vae.VaeInitException;
 import org.va_labs.vae.core.Vae;
 import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.parser.IAntParser;
-import org.va_labs.vae.parser.SaxAntParser;
 
 /**
  * @author mojo_jojo
@@ -33,16 +32,6 @@ public class AntLoader implements IRunnableWithProgress {
     private File buildFile;
 
     /**
-     * Vae instance that pilots this loader.
-     */
-    private Vae vae;
-
-    /**
-     * Parser that will load the build file.
-     */
-    private IAntParser parser;
-
-    /**
      * Path + name of the build file.
      */
     private StringBuffer buildLocation;
@@ -53,9 +42,8 @@ public class AntLoader implements IRunnableWithProgress {
      * @param coreVae
      *            the core vae instance that pilots this loader.
      */
-    public AntLoader(Vae coreVae) throws VaeInitException {
-        parser = new SaxAntParser();
-        vae = coreVae;
+    public AntLoader() throws VaeInitException {
+        
     }
 
     /**
@@ -65,7 +53,7 @@ public class AntLoader implements IRunnableWithProgress {
      */
     public void loadBuild() throws LoadFailedException {
         try {
-            Vui vui = Vui.getVui();
+            Vui vui = Vui.getInstance();
             new ProgressMonitorDialog(vui.getShell()).run(false, true, this);
         } catch (InterruptedException e) {
             // Nothing to be done : interrupted at user's demand.
@@ -98,6 +86,8 @@ public class AntLoader implements IRunnableWithProgress {
      */
     public void run(IProgressMonitor progressMonitor)
             throws InvocationTargetException, InterruptedException {
+        Vae vae = Vae.getInstance();
+        IAntParser parser = vae.getAntParser();
         try {
             progressMonitor.beginTask("Loading " + buildLocation + "...", 4);
             progressMonitor.subTask("Opening " + buildLocation + "...");
@@ -144,14 +134,5 @@ public class AntLoader implements IRunnableWithProgress {
      */
     public void setBuildFile(String filename) {
         buildLocation = new StringBuffer(filename);
-    }
-
-    /**
-     * Sets the parser that is used to load the file.
-     * 
-     * @see org.vae.core.BuildLoader#setParser(org.vae.xml.Xml)
-     */
-    public void setParser(IAntParser antParser) {
-        parser = antParser;
     }
 }
