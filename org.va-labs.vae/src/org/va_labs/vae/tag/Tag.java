@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Tag.java,v 1.3 2005/02/26 00:56:06 mojo_jojo Exp $
+ * $Id: Tag.java,v 1.4 2005/03/05 14:55:49 mojo_jojo Exp $
  */
 package org.va_labs.vae.tag;
 
@@ -66,6 +66,11 @@ public abstract class Tag {
      * Attributes for this tag.
      */
     protected List attributes;
+
+    /**
+     * Characters between the opening and closing tags.
+     */
+    protected StringBuffer characters;
 
     /**
      * Indicates wether the tag needs to be saved or not. if false, the project
@@ -174,6 +179,16 @@ public abstract class Tag {
      */
     public List getAttributes() {
         return attributes;
+    }
+
+    /**
+     * Indicates the characters between the openin and closing tag represented
+     * by this instance.
+     * 
+     * @return the string as a StringBuffer.
+     */
+    public StringBuffer getCharacters() {
+        return characters;
     }
 
     /**
@@ -375,6 +390,21 @@ public abstract class Tag {
     }
 
     /**
+     * Sets the characters for this tag.
+     * 
+     * In the beguinning users won't be allowed to change this, so this method
+     * will only be called by the parser. However as this may change in the
+     * future, we mark the tag, and consequently the project as dirty.
+     * 
+     * @param chars
+     *            characters located between the opening and closing tag.
+     */
+    public void setCharacters(StringBuffer chars) {
+        characters = chars;
+        setClean(false);
+    }
+
+    /**
      * Sets wether the project containing this tag need to be saved or not.
      * 
      * @param status,
@@ -468,19 +498,24 @@ public abstract class Tag {
             content.append(attribute.getName() + "=\"");
             content.append(attribute.getValue() + "\" ");
         }
-        content.append(">\n");
+        content.append(">");
 
-        for (Iterator i = nestedElements.iterator(); i.hasNext();) {
-            Tag tag = (Tag) i.next();
-            tabDepth++;
-            content.append(tag.toXml());
-        }
+        if (characters != null) {
+            content.append(characters);
+        } else {
+            content.append("\n");
+            for (Iterator i = nestedElements.iterator(); i.hasNext();) {
+                Tag tag = (Tag) i.next();
+                tabDepth++;
+                content.append(tag.toXml());
+            }
 
-        for (int i = 0; i < tabDepth; i++) {
-            content.append("\t");
+            for (int i = 0; i < tabDepth; i++) {
+                content.append("\t");
+            }
+            tabDepth--;
         }
         content.append("</" + tagName + ">\n");
-        tabDepth--;
         return content;
     }
 
