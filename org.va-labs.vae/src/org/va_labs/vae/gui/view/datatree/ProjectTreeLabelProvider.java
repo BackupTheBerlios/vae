@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004
  *
- * $Id: ProjectTreeLabelProvider.java,v 1.6 2005/02/26 13:27:56 mojo_jojo Exp $
+ * $Id: ProjectTreeLabelProvider.java,v 1.7 2005/02/27 23:50:03 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datatree;
 
@@ -68,16 +68,12 @@ public class ProjectTreeLabelProvider implements ILabelProvider {
      */
     public Image getImage(Object object) {
         if (object instanceof SwtTask || object instanceof SwtNestedElement) {
-            System.out.println("Requesting vae_task");
             return ImageHandler.getRegistry().get("vae_task");
         } else if (object instanceof SwtTarget) {
-            System.out.println("Requesting vae_target");
             return ImageHandler.getRegistry().get("vae_target");
         } else if (object instanceof SwtProperty) {
-            System.out.println("Requesting vae_property");
             return ImageHandler.getRegistry().get("vae_property");
         } else {
-            System.out.println("Requesting vae_unidentified_tag");
             return ImageHandler.getRegistry().get("vae_unidentified_tag");
         }
     }
