@@ -1,7 +1,7 @@
 /*
  * Created on Aug 22, 2004
  *
- * $Id: DataCellModifier.java,v 1.2 2005/02/20 12:43:42 mojo_jojo Exp $
+ * $Id: DataCellModifier.java,v 1.3 2005/02/22 23:03:19 mojo_jojo Exp $
  */
 package org.va_labs.vae.gui.view.datainfo;
 
@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.internal.ExceptionHandler;
 import org.va_labs.vae.Messages;
 import org.va_labs.vae.core.TagAttribute;
+import org.va_labs.vae.gui.Vui;
 import org.va_labs.vae.parser.IllegalAttributeException;
 import org.va_labs.vae.tag.NoSuchAttributeException;
 import org.va_labs.vae.tag.Tag;
@@ -122,7 +123,7 @@ public class DataCellModifier implements ICellModifier {
                     String name = tagAttribute.getName();
                     tag.updateAttribute(name, name, value.toString());
                 }
-                viewer.refresh(tagAttribute);
+                Vui.getVui().refresh(tagAttribute);
             } catch (IllegalAttributeException e) {
                 // TODO: Handle IllegalAttributeException better !
                 exceptionHandler.handleException(e);
