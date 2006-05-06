@@ -1,7 +1,7 @@
 /*
  * Created on Sep 5, 2004
  *
- * $Id: VaeInitException.java,v 1.1 2005/04/05 02:45:23 mojo_jojo Exp $
+ * $Id: VaeInitException.java,v 1.2 2006/05/06 19:11:00 mojo_jojo Exp $
  */
 package org.vae_labs.vae;
 
@@ -13,6 +13,11 @@ package org.vae_labs.vae;
 public class VaeInitException extends VaeException {
 
     /**
+	 * Used for serialization purposes.
+	 */
+	private static final long serialVersionUID = -1567466370704400308L;
+
+	/**
      * @param vaeModule
      *            module that couldn't initialize.
      * @param errorMessage
