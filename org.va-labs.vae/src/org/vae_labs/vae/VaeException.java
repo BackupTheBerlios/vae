@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: VaeException.java,v 1.1 2005/04/05 02:45:23 mojo_jojo Exp $
+ * $Id: VaeException.java,v 1.2 2006/05/06 19:10:01 mojo_jojo Exp $
  */
 package org.vae_labs.vae;
 
@@ -13,6 +13,11 @@ package org.vae_labs.vae;
 public class VaeException extends Exception {
 
     /**
+	 * Used for serialization purposes.
+	 */
+	private static final long serialVersionUID = -2327653494473168248L;
+
+	/**
 	 * Reference to the module that raised this exception.
 	 */
 	protected StringBuffer module;
