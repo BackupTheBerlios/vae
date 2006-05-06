@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: NoSuchTagException.java,v 1.1 2005/04/05 02:45:25 mojo_jojo Exp $
+ * $Id: NoSuchTagException.java,v 1.2 2006/05/06 19:07:59 mojo_jojo Exp $
  */
 package org.vae_labs.vae.tag;
 
@@ -22,6 +22,11 @@ import org.vae_labs.vae.core.Vae;
 public class NoSuchTagException extends VaeException {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 310831899098787659L;
+
+	/**
      * Simply calls the VaeException constructor with adequate options. 
      * @param nestedTag tag that was processed when the exception was raised.
      * @param parentTag parent tag of the processed tag.

@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: NoSuchAttributeException.java,v 1.1 2005/04/05 02:45:25 mojo_jojo Exp $
+ * $Id: NoSuchAttributeException.java,v 1.2 2006/05/06 19:07:59 mojo_jojo Exp $
  */
 package org.vae_labs.vae.tag;
 
@@ -21,6 +21,11 @@ import org.vae_labs.vae.core.Vae;
 public class NoSuchAttributeException extends VaeException {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 936178008260460052L;
+
+	/**
      * The constructor simply calls the regular VaeException constructor to take
      * care of everythin.
      * 

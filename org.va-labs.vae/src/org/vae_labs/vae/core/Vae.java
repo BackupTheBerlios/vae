@@ -1,7 +1,7 @@
 /*
  * Created on Aug 15, 2004
  *
- * $Id: Vae.java,v 1.1 2005/04/05 02:45:25 mojo_jojo Exp $
+ * $Id: Vae.java,v 1.2 2006/05/06 19:07:57 mojo_jojo Exp $
  */
 package org.vae_labs.vae.core;
 
@@ -287,8 +287,6 @@ public class Vae {
      * to be saved, and asks the user wether he wants to save those ones or not.
      */
     public void quit() {
-        int projectsNumber = projects.size();
-
         if (hasDirty()) {
             Object toSave[] = vui.getToSave();
             if (toSave != null) {
@@ -357,7 +355,6 @@ public class Vae {
     public void saveProjects(Object[] toSave) {
         if (toSave != null) {
             for (int i = 0; i < toSave.length; i++) {
-                // TODO (saveProjects): Implement the method.
                 saveProject((Project) toSave[i]);
             }
         }
