@@ -1,7 +1,7 @@
 /*
  * Created on Aug 16, 2004
  *
- * $Id: Vui.java,v 1.1 2005/04/05 02:45:26 mojo_jojo Exp $
+ * $Id: Vui.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.gui;
 
@@ -283,7 +283,6 @@ public class Vui {
      *            listener to be taken out from the list.
      */
     public void removeElementListener(IElementListener listener) {
-        int index = elementListeners.indexOf(listener);
         if (!elementListeners.remove(listener)) {
             // TODO: Send the trouble to the exceptionHandler !
         }

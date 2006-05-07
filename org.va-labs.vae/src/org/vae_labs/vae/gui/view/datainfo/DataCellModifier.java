@@ -1,12 +1,11 @@
 /*
  * Created on Aug 22, 2004
  *
- * $Id: DataCellModifier.java,v 1.1 2005/04/05 02:45:26 mojo_jojo Exp $
+ * $Id: DataCellModifier.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.gui.view.datainfo;
 
 import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.TableItem;
 import org.vae_labs.vae.Messages;
 import org.vae_labs.vae.core.TagAttribute;
@@ -21,22 +20,7 @@ import org.vae_labs.vae.tag.Tag;
  * Makes the attributes table editable.
  */
 public class DataCellModifier implements ICellModifier {
-
-    /**
-     * Reference to the table viewer.
-     * 
-     * Used to refresh the display after a change.
-     */
-    private TableViewer viewer;
-
-    /**
-     * Sets the reference to the exception handler and to the TableViewer.
-     *  
-     */
-    public DataCellModifier(TableViewer tableViewer) {
-        viewer = tableViewer;
-    }
-
+	
     /**
      * For now all columns are editable.
      * 

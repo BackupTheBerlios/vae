@@ -1,7 +1,7 @@
 /*
  * Created on Sep 5, 2004
  *
- * $Id: SimpleTarget.java,v 1.1 2005/04/05 02:45:27 mojo_jojo Exp $
+ * $Id: SimpleTarget.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.tag.target;
 
@@ -122,7 +122,7 @@ public class SimpleTarget extends Target {
 	{
 		verifyAttribute(name, value);
 		TagAttribute attribute = new TagAttribute(this, name, value);
-		attributes.add(position, attributes);
+		attributes.add(position, attribute);
 	}
 
 	/**

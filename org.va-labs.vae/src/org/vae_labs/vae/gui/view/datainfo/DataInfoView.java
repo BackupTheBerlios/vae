@@ -1,7 +1,7 @@
 /*
  * Created on Aug 12, 2004
  *
- * $Id: DataInfoView.java,v 1.1 2005/04/05 02:45:26 mojo_jojo Exp $
+ * $Id: DataInfoView.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.gui.view.datainfo;
 
@@ -77,7 +77,7 @@ public class DataInfoView extends ViewPart implements IElementListener {
 
         tableViewer.setContentProvider(new DataTableContentProvider());
         tableViewer.setLabelProvider(new DataTableLabelProvider());
-        tableViewer.setCellModifier(new DataCellModifier(tableViewer));
+        tableViewer.setCellModifier(new DataCellModifier());
         tableViewer.setCellEditors(new CellEditor[] {
                 new TextCellEditor(tableViewer.getTable()),
                 new TextCellEditor(tableViewer.getTable()) });

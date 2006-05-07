@@ -1,15 +1,13 @@
 /*
  * Created on Sep 6, 2004
  *
- * $Id: ProjectTreeListener.java,v 1.1 2005/04/05 02:45:25 mojo_jojo Exp $
+ * $Id: ProjectTreeListener.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.gui.view.datatree.listener;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.custom.TreeEditor;
-import org.eclipse.swt.widgets.Tree;
 import org.vae_labs.vae.gui.Vui;
 import org.vae_labs.vae.gui.tag.ISwtElement;
 
@@ -28,16 +26,6 @@ public class ProjectTreeListener implements ISelectionChangedListener {
     private Vui vui;
 
     /**
-     * Reference to the tree viewer that might get edited.
-     */
-    private Tree tree;
-
-    /**
-     * TreeEditor used to edit values directly from the tree.
-     */
-    private TreeEditor treeEditor;
-
-    /**
      * Reference to the previously selected object. We use this to see if the
      * user wants to start editing the current object or not.
      */
@@ -47,12 +35,9 @@ public class ProjectTreeListener implements ISelectionChangedListener {
      * Listens to the changes on the project tree, and transmit them to the Vae
      * user interface.
      * 
-     * @param tree
-     *            tree we will be listening for changes.
      */
-    public ProjectTreeListener(Tree tree) {
+    public ProjectTreeListener() {
         vui = Vui.getInstance();
-        this.tree = tree;
     }
 
     /**

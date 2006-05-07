@@ -376,3 +376,52 @@
 	
 05/04/2005 mojo_jojo
 	Moved all the va_labs things to vae_labs.
+	
+06/05/2005 mojo_jojo
+	Taking out the warnings :
+	* Vae.java (quit) : Suppressed an unused variable.
+	
+	* NoSuchAttributeException.java : Added a serial version UID for 
+	serialization.
+
+	* NoSuchTagException.java : Added a serial version UID for serialization.
+	
+	* VaeException.java : Added a serial version UID for serialization.
+	
+	* VaeInitException.java : Added a serial version UID for serialization.
+	
+	* IllegalAttributeException.java : Added a serial version UID for 
+	serialization.
+	
+	* LoadFailedException.java : Added a serial version UID for serialization.
+	
+	* VaeParsingException.java : Added a serial version UID for serialization.
+	
+	* NoSuchPropertyException.java : Added a serial version UID for 
+	serialization.
+	
+	* NoSuchTaskDefException.java : Added a serial version UID for 
+	serialization.
+	
+	* Vui.java (removeElementListener) : Suppressed an unused variable.
+	
+	* OpenAction.java : suppressed an unused member of the class, reorganized 
+	the imports.
+	
+	* DataCellModifier.java : Suppressed an unused member of the class. 
+	(DataCellModifier) : taken out the constructor as the data was never used.
+	* DataInfoView.java : Modified the creation of the DataCellModifier as 
+	the construtor has changed.
+	
+	* ProjectTreeListener.java : Suppressed unused members of the class.
+	(ProjectTreeListener.java) : Modified the constructor to take out reference
+	to unused data.
+	* DataTreeView.java (createPartControl) : Uses the new constructor signature
+	of ProjectTreeListener.
+	
+	* SimpleTarget.java (addAttribute) : Correction of a bug in the addition of
+	an attribute at a specified position.
+	
+	Making all the model classes implement the IPropertySource and Serializable
+	interfaces to make them compatible with Gef :
+	

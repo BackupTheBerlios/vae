@@ -1,7 +1,7 @@
 /*
  * Created on Aug 17, 2004
  *
- * $Id: OpenAction.java,v 1.1 2005/04/05 02:45:25 mojo_jojo Exp $
+ * $Id: OpenAction.java,v 1.2 2006/05/07 10:49:15 mojo_jojo Exp $
  */
 package org.vae_labs.vae.gui.actions;
 
@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.vae_labs.vae.core.Vae;
-import org.vae_labs.vae.gui.Vui;
 
 /**
  * @author mojo_jojo
@@ -19,11 +18,6 @@ import org.vae_labs.vae.gui.Vui;
  * Handles clicks on the Open entry of the file menu.
  */
 public class OpenAction extends Action {
-
-    /**
-     * Reference to the Vae User Interface that instanciate this object.
-     */
-    private Vui vui;
 
     /**
      * Reference to the workbench window that is used in the workbench.
